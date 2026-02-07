@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import React from 'react';
 
 export default function Container({
@@ -10,7 +11,10 @@ export default function Container({
 }) {
   return (
     <div
-      className={`animate-fade-in-blur container mx-auto max-w-3xl px-4 ${className}`}
+      className={cn(
+        'animate-fade-in-blur container mx-auto max-w-3xl px-4',
+        className,
+      )}
       {...props}
     >
       {children}

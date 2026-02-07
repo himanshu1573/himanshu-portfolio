@@ -4,7 +4,7 @@ export const parseTemplate = (
   template: string,
   skills: typeof heroConfig.skills,
 ) => {
-  const parts = template.split(/(\{skills:\d+\})/);
+  const parts = template.split(/(\{skills:\d+\}|<b>(?:[^<]|<(?!\/b>))*<\/b>)/);
 
   return parts
     .map((part, index) => {
@@ -21,23 +21,39 @@ export const parseTemplate = (
         }
       }
 
-      const boldParts = part.split(/(<b>.*?<\/b>)/);
-      return boldParts.map((boldPart, boldIndex) => {
-        if (boldPart.startsWith('<b>') && boldPart.endsWith('</b>')) {
-          return {
-            type: 'bold',
-            text: boldPart.slice(3, -4),
-            key: `${index}-${boldIndex}`,
-          };
+      if (part.startsWith('<b>') && part.endsWith('</b>')) {
+        const content = part.slice(3, -4);
+        // Check if content has a skill placeholder
+        const innerSkillMatch = content.match(/\{skills:(\d+)\}/);
+        if (innerSkillMatch) {
+          const skillIndex = parseInt(innerSkillMatch[1]);
+          const skill = skills[skillIndex];
+          if (skill) {
+            return {
+              type: 'skill',
+              skill: skill,
+              key: index,
+              bold: true,
+            };
+          }
         }
         return {
-          type: 'text',
-          text: boldPart,
-          key: `${index}-${boldIndex}`,
+          type: 'bold',
+          text: content,
+          key: index,
         };
-      });
+      }
+
+      if (part.trim()) {
+        return {
+          type: 'text',
+          text: part,
+          key: index,
+        };
+      }
+      return null;
     })
-    .flat();
+    .filter(Boolean);
 };
 
 export const parseBoldText = (text: string) => {

@@ -12,6 +12,14 @@
   src: url('/fonts/HankenGrotesk-Italic-Variable.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -128,6 +136,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -145,6 +154,10 @@
   font-family: 'Hanken Grotesk Italic', sans-serif;
 }
 
+.font-geist-mono {
+  font-family: 'Geist Mono', monospace;
+}
+
 /* Code block copy button styles */
 .prose pre {
   @apply relative;
@@ -160,6 +173,7 @@
     opacity: 0.2;
     filter: blur(5px);
   }
+
   100% {
     opacity: 1;
     filter: blur(0px);

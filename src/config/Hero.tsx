@@ -27,13 +27,17 @@ import Github from '@/components/svgs/Github';
 import LinkedIn from '@/components/svgs/LinkedIn';
 import Mail from '@/components/svgs/Mail';
 import X from '@/components/svgs/X';
+import AgenticAI from '@/components/technologies/AgenticAI';
 import Bun from '@/components/technologies/Bun';
+import Docker from '@/components/technologies/Docker';
 import JavaScript from '@/components/technologies/JavaScript';
+import LangChain from '@/components/technologies/LangChain';
 import MongoDB from '@/components/technologies/MongoDB';
 import NextJs from '@/components/technologies/NextJs';
 import NodeJs from '@/components/technologies/NodeJs';
 import PostgreSQL from '@/components/technologies/PostgreSQL';
 import Prisma from '@/components/technologies/Prisma';
+import Python from '@/components/technologies/Python';
 import ReactIcon from '@/components/technologies/ReactIcon';
 // Technology Components
 import TypeScript from '@/components/technologies/TypeScript';
@@ -49,16 +53,25 @@ export const skillComponents = {
   MongoDB: MongoDB,
   Prisma: Prisma,
   JavaScript: JavaScript,
+  Python: Python,
+  Docker: Docker,
+  LangChain: LangChain,
+  AgenticAI: AgenticAI,
 };
 
 export const heroConfig = {
   // Personal Information
-  name: 'Ram',
-  title: 'A Full Stack web developer.',
+  name: 'Saurabh',
+  title: 'AI Full Stack Engineer',
   avatar: '/assets/logo.png',
 
   // Skills Configuration
   skills: [
+    {
+      name: 'Python',
+      href: 'https://www.python.org/',
+      component: 'Python',
+    },
     {
       name: 'Typescript',
       href: 'https://www.typescriptlang.org/',
@@ -75,21 +88,26 @@ export const heroConfig = {
       component: 'NextJs',
     },
     {
-      name: 'Bun',
-      href: 'https://bun.sh/',
-      component: 'Bun',
+      name: 'Docker',
+      href: 'https://www.docker.com/',
+      component: 'Docker',
     },
     {
-      name: 'PostgreSQL',
-      href: 'https://www.postgresql.org/',
-      component: 'PostgreSQL',
+      name: 'LangChain',
+      href: 'https://www.langchain.com/',
+      component: 'LangChain',
+    },
+    {
+      name: 'Agentic AI',
+      href: 'https://www.anthropic.com/',
+      component: 'AgenticAI',
     },
   ],
 
   // Description Configuration
   description: {
     template:
-      'I build interactive web apps using {skills:0}, {skills:1}, {skills:2}, {skills:3} and {skills:4}. With a focus on <b>UI</b> design. Enthusiastic about <b>Three.js</b>, driven by a keen eye for design.',
+      'I build <b>AI-powered applications</b> using {skills:0}, {skills:1}, {skills:2}, and {skills:3}. Specialized in <b>Applied AI</b> and <b>GenAI</b> with {skills:5}, mastering <b>{skills:6}</b> to create intelligent solutions. Passionate about building MVPs that solve real-world problems with {skills:4}.',
   },
 
   // Buttons Configuration
@@ -113,22 +131,22 @@ export const heroConfig = {
 export const socialLinks = [
   {
     name: 'X',
-    href: 'https://x.com/ramxcodes',
+    href: 'https://x.com/gitsaurabh0',
     icon: <X />,
   },
   {
     name: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/ramxcodes/',
+    href: 'https://www.linkedin.com/in/saurabh-singh-027006328/',
     icon: <LinkedIn />,
   },
   {
     name: 'Github',
-    href: 'https://github.com/ramxcodes',
+    href: 'https://github.com/Saurabhsing21',
     icon: <Github />,
   },
   {
     name: 'Email',
-    href: 'mailto:ramxcodes@gmail.com',
+    href: 'mailto:saurabhsingh881888@gmail.com',
     icon: <Mail />,
   },
 ];

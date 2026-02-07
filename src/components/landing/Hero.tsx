@@ -11,6 +11,7 @@ import CV from '../svgs/CV';
 import Chat from '../svgs/Chat';
 import { Button } from '../ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import CodingStatus from './CodingStatus';
 
 const buttonIcons = {
   CV: CV,
@@ -23,10 +24,13 @@ export default function Hero() {
   const renderDescription = () => {
     const parts = parseTemplate(description.template, skills);
 
-    return parts.map((part) => {
+    return parts.filter(Boolean).map((part) => {
+      if (!part) return null;
+
       if (part.type === 'skill' && 'skill' in part && part.skill) {
         const SkillComponent =
           skillComponents[part.skill.component as keyof typeof skillComponents];
+
         return (
           <Skill key={part.key} name={part.skill.name} href={part.skill.href}>
             <SkillComponent />
@@ -34,16 +38,12 @@ export default function Hero() {
         );
       } else if (part.type === 'bold' && 'text' in part) {
         return (
-          <b key={part.key} className="text-primary whitespace-pre-wrap">
+          <b key={part.key} className="text-primary">
             {part.text}
           </b>
         );
       } else if (part.type === 'text' && 'text' in part) {
-        return (
-          <span key={part.key} className="whitespace-pre-wrap">
-            {part.text}
-          </span>
-        );
+        return <span key={part.key}>{part.text}</span>;
       }
       return null;
     });
@@ -51,14 +51,20 @@ export default function Hero() {
 
   return (
     <Container className="mx-auto max-w-5xl">
-      {/* Image */}
-      <Image
-        src={avatar}
-        alt="hero"
-        width={100}
-        height={100}
-        className="size-24 rounded-full bg-blue-300 dark:bg-yellow-300"
-      />
+      {/* Image with Coding Status Dot */}
+      <div className="relative inline-block">
+        <Image
+          src={avatar}
+          alt="hero"
+          width={100}
+          height={100}
+          className="size-24 rounded-full bg-blue-300 dark:bg-yellow-300"
+        />
+        {/* Status dot positioned at bottom-right of avatar */}
+        <div className="absolute -right-1 -bottom-1">
+          <CodingStatus />
+        </div>
+      </div>
 
       {/* Text Area */}
       <div className="mt-8 flex flex-col gap-2">
@@ -66,7 +72,7 @@ export default function Hero() {
           Hi, I&apos;m {name} — <span className="text-secondary">{title}</span>
         </h1>
 
-        <div className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-base whitespace-pre-wrap text-neutral-500 md:text-lg">
+        <div className="mt-4 text-base leading-loose text-neutral-500 md:text-lg">
           {renderDescription()}
         </div>
       </div>
