@@ -1,6 +1,6 @@
-import Container from '@/components/common/Container';
+import DashedHorizontalRule from '@/components/common/DashedHorizontalRule';
+import SectionTitle from '@/components/common/SectionTitle';
 import { ProjectList } from '@/components/projects/ProjectList';
-import { Separator } from '@/components/ui/separator';
 import { generateMetadata as getMetadata } from '@/config/Meta';
 import { projects } from '@/config/Projects';
 import { Metadata } from 'next';
@@ -22,37 +22,40 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <Container className="py-16">
-      <div className="space-y-8">
-        {/* Header */}
-        <div className="space-y-4 text-center">
-          <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">
-            Projects
-          </h1>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+    <main>
+      <div className="content-column content-column-dashed relative mx-auto">
+        <SectionTitle>Projects</SectionTitle>
+
+        <div className="space-y-4 px-6 pt-4 pb-4">
+          <p className="text-sm text-muted-foreground">
             My projects and work across different technologies and domains.
           </p>
+          <h2 className="text-sm font-semibold text-foreground">
+            All Projects
+            {projects.length > 0 && (
+              <span className="ml-2 text-sm font-normal text-muted-foreground">
+                ({projects.length}{' '}
+                {projects.length === 1 ? 'project' : 'projects'})
+              </span>
+            )}
+          </h2>
         </div>
 
-        <Separator />
-
-        {/* Projects */}
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold">
-              All Projects
-              {projects.length > 0 && (
-                <span className="text-muted-foreground ml-2 text-sm font-normal">
-                  ({projects.length}{' '}
-                  {projects.length === 1 ? 'project' : 'projects'})
-                </span>
-              )}
-            </h2>
+        {/* Mid vertical flush between framing horizontal rules */}
+        <DashedHorizontalRule />
+        <div className="relative">
+          <div
+            className="projects-grid-mid pointer-events-none absolute inset-y-0 left-1/2 z-[1] hidden w-px -translate-x-1/2 md:block"
+            aria-hidden="true"
+          />
+          <div className="px-6">
+            <ProjectList projects={projects} showMid={false} />
           </div>
-
-          <ProjectList projects={projects} />
         </div>
+        <DashedHorizontalRule />
+
+        <div className="pb-12" />
       </div>
-    </Container>
+    </main>
   );
 }

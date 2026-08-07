@@ -108,6 +108,50 @@ export const pageMetadata: Record<string, PageMeta> = {
     ogImage: '/meta/resume.png',
     twitterCard: 'summary',
   },
+
+  // Gears page
+  '/gears': {
+    title: 'Gears Used - Hardware & Tools',
+    description:
+      'The devices, software, and browser extensions I use daily as an AI full-stack engineer.',
+    keywords: ['gears', 'setup', 'hardware', 'tools', 'macbook', 'workflow'],
+    ogImage: '/meta/gears.png',
+    twitterCard: 'summary_large_image',
+  },
+
+  // Editor setup page
+  '/setup': {
+    title: 'VS Code / Cursor Setup',
+    description:
+      'My VS Code and Cursor editor setup — fonts, extensions, and settings.json for productive AI development.',
+    keywords: [
+      'vscode',
+      'cursor',
+      'editor setup',
+      'extensions',
+      'settings',
+      'developer tools',
+    ],
+    ogImage: '/meta/setup.png',
+    twitterCard: 'summary_large_image',
+  },
+
+  // Movies page
+  '/movies': {
+    title: 'Movies & Shows I Love',
+    description:
+      'Films and series that shape how I think — Dark, Interstellar, Inception, Mission Impossible, and more.',
+    keywords: [
+      'movies',
+      'shows',
+      'dark',
+      'interstellar',
+      'inception',
+      'mission impossible',
+    ],
+    ogImage: '/meta/blogs.png',
+    twitterCard: 'summary_large_image',
+  },
 };
 
 // Helper function to get metadata for a specific page

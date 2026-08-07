@@ -1,3 +1,14 @@
+export interface ProjectDetails {
+  /** Short “why this exists” paragraph shown under the title */
+  overview: string;
+  /** Optional lead-in before the feature list */
+  highlightsLabel?: string;
+  /** Concrete features / capabilities */
+  highlights: string[];
+  /** Closing line summarizing the goal */
+  outcome?: string;
+}
+
 export interface Project {
   title: string;
   description: string;
@@ -7,7 +18,11 @@ export interface Project {
   technologies: { name: string; icon: React.ReactNode }[];
   github?: string;
   live: string;
+  /** Optional write-up / blog URL shown in the Post action slot */
+  post?: string;
   details: boolean;
+  /** Curated case-study content for the project detail page */
+  detailContent?: ProjectDetails;
   projectDetailsPageSlug: string;
   isWorking: boolean;
 }

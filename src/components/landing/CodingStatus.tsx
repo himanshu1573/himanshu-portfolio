@@ -99,7 +99,7 @@ export default function CodingStatus() {
             : 'invisible -translate-y-2 opacity-0'
         }`}
       >
-        <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white/95 px-4 py-2 whitespace-nowrap shadow-lg backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/95">
+        <div className="flex items-center gap-3 rounded-lg border border-dashed border-[var(--dashed-border)] bg-background px-4 py-2 whitespace-nowrap shadow-sm">
           {/* Online/Offline Status */}
           <div className="flex items-center gap-2">
             <div
@@ -109,7 +109,7 @@ export default function CodingStatus() {
                   : 'bg-gray-400'
               }`}
             />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span className="text-sm font-medium text-foreground">
               {stats.isOnline ? 'Online' : 'Offline'} in{' '}
               <span className="inline-flex items-center gap-1">
                 <svg
@@ -140,19 +140,19 @@ export default function CodingStatus() {
           </div>
 
           {/* Divider */}
-          <div className="h-4 w-px bg-gray-300 dark:bg-gray-600" />
+          <div className="h-4 w-px bg-[var(--dashed-border)]" />
 
           {/* Today's Coding Time */}
-          <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <span>Today coded</span>
-            <span className="font-bold text-gray-900 dark:text-white">
+            <span className="font-bold text-foreground">
               {stats.todayTime || stats.yesterdayTime || '0h 0m'}
             </span>
           </div>
         </div>
 
         {/* Arrow pointer */}
-        <div className="absolute -top-1 left-2 size-2 rotate-45 border-t border-l border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800" />
+        <div className="absolute -top-1 left-2 size-2 rotate-45 border-t border-l border-dashed border-[var(--dashed-border)] bg-background" />
       </div>
     </div>
   );

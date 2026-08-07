@@ -10,13 +10,15 @@ export const metadata: Metadata = {
     'Thoughts on AI, full-stack development, and building products that matter.',
 };
 
-export default function BlogPage() {
-  const posts = getPublishedBlogPosts();
+/** Refresh listing hourly so newly published Dev.to posts appear automatically */
+export const revalidate = 3600;
+
+export default async function BlogPage() {
+  const posts = await getPublishedBlogPosts();
 
   return (
     <Container className="py-16">
       <div className="space-y-8">
-        {/* Header */}
         <div className="space-y-3">
           <p className="text-secondary text-sm">Writing</p>
           <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">
@@ -30,12 +32,10 @@ export default function BlogPage() {
 
         <Separator />
 
-        {/* Posts count */}
         <p className="text-muted-foreground text-sm">
           {posts.length} {posts.length === 1 ? 'post' : 'posts'}
         </p>
 
-        {/* Grid */}
         {posts.length === 0 ? (
           <div className="flex min-h-[300px] flex-col items-center justify-center text-center">
             <p className="text-muted-foreground text-lg font-medium">

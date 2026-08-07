@@ -6,7 +6,6 @@ import Cal, { getCalApi } from '@calcom/embed-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-import Container from '../common/Container';
 import {
   Dialog,
   DialogContent,
@@ -61,7 +60,7 @@ export default function CTA({
 
   return (
     <>
-      <Container className="mt-20 rounded-md border border-dashed border-black/20 py-8 dark:border-white/10">
+      <div className="rounded-md border border-dashed border-gray-200 py-8 dark:border-gray-800">
         <div className="mt-6 w-full flex-col px-6 pb-8 sm:flex sm:items-center sm:justify-between sm:px-12">
           <p className="mb-4 text-center text-base opacity-50 sm:mb-3 md:text-xl">
             {preText}
@@ -109,7 +108,7 @@ export default function CTA({
             </div>
           </div>
         </div>
-      </Container>
+      </div>
 
       {/* Cal.com Dialog */}
       <Dialog open={showCalPopup} onOpenChange={setShowCalPopup}>

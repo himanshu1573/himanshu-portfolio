@@ -1,5 +1,6 @@
 import { projects } from '@/config/Projects';
 import {
+  Project,
   ProjectCaseStudy,
   ProjectCaseStudyFrontmatter,
   ProjectCaseStudyPreview,
@@ -9,6 +10,29 @@ import matter from 'gray-matter';
 import path from 'path';
 
 const projectsDirectory = path.join(process.cwd(), 'src/data/projects');
+
+/**
+ * Extract slug from `/projects/crime-alert` → `crime-alert`
+ */
+export function getProjectSlug(project: Project): string {
+  return project.projectDetailsPageSlug.replace(/^\/projects\//, '');
+}
+
+/**
+ * Get a portfolio project from config by URL slug
+ */
+export function getProjectBySlug(slug: string): Project | null {
+  return projects.find((project) => getProjectSlug(project) === slug) ?? null;
+}
+
+/**
+ * Slugs for all config projects that have detail pages enabled
+ */
+export function getProjectDetailSlugs(): string[] {
+  return projects
+    .filter((project) => project.details)
+    .map((project) => getProjectSlug(project));
+}
 
 /**
  * Get all project case study files from the projects directory
@@ -40,7 +64,6 @@ export function getProjectCaseStudyBySlug(
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
 
-    // Validate frontmatter
     const frontmatter = data as ProjectCaseStudyFrontmatter;
     if (!frontmatter.title || !frontmatter.description) {
       throw new Error(`Invalid frontmatter in ${slug}.mdx`);
@@ -77,7 +100,6 @@ export function getAllProjectCaseStudies(): ProjectCaseStudyPreview[] {
       (caseStudy): caseStudy is ProjectCaseStudyPreview => caseStudy !== null,
     )
     .sort((a, b) => {
-      // Sort by featured first, then by title
       if (a.frontmatter.featured && !b.frontmatter.featured) return -1;
       if (!a.frontmatter.featured && b.frontmatter.featured) return 1;
       return a.frontmatter.title.localeCompare(b.frontmatter.title);
@@ -133,7 +155,6 @@ export function getProjectNavigation(currentSlug: string): {
   previous: { title: string; slug: string } | null;
   next: { title: string; slug: string } | null;
 } {
-  // Find current project in config
   const currentProjectIndex = projects.findIndex(
     (project) => project.projectDetailsPageSlug === `/projects/${currentSlug}`,
   );
@@ -153,16 +174,13 @@ export function getProjectNavigation(currentSlug: string): {
     previous: previousProject
       ? {
           title: previousProject.title,
-          slug: previousProject.projectDetailsPageSlug.replace(
-            '/projects/',
-            '',
-          ),
+          slug: getProjectSlug(previousProject),
         }
       : null,
     next: nextProject
       ? {
           title: nextProject.title,
-          slug: nextProject.projectDetailsPageSlug.replace('/projects/', ''),
+          slug: getProjectSlug(nextProject),
         }
       : null,
   };
@@ -185,7 +203,6 @@ export function getRelatedProjectCaseStudies(
     (tech) => tech.toLowerCase(),
   );
 
-  // Calculate relevance score based on shared technologies
   const caseStudiesWithScore = allCaseStudies
     .filter((caseStudy) => caseStudy.slug !== currentSlug)
     .map((caseStudy) => {

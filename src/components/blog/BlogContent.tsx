@@ -4,6 +4,8 @@ import { BlogFrontmatter } from '@/types/blog';
 import rehypeHighlight from '@shikijs/rehype';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 import Calender from '../svgs/Calender';
 import { BlogComponents } from './BlogComponents';
@@ -11,9 +13,15 @@ import { BlogComponents } from './BlogComponents';
 interface BlogContentProps {
   frontmatter: BlogFrontmatter;
   content: string;
+  /** Local MDX posts use mdx; Dev.to bodies use markdown */
+  format?: 'mdx' | 'markdown';
 }
 
-export function BlogContent({ frontmatter, content }: BlogContentProps) {
+export function BlogContent({
+  frontmatter,
+  content,
+  format = 'mdx',
+}: BlogContentProps) {
   const { title, description, image, tags, date } = frontmatter;
 
   const formattedDate = new Date(date).toLocaleDateString('en-US', {
@@ -24,7 +32,6 @@ export function BlogContent({ frontmatter, content }: BlogContentProps) {
 
   return (
     <article className="mx-auto max-w-4xl">
-      {/* Hero Section */}
       <header className="mb-8 space-y-6">
         <div className="relative aspect-video overflow-hidden rounded-lg">
           <Image
@@ -60,24 +67,29 @@ export function BlogContent({ frontmatter, content }: BlogContentProps) {
         <Separator />
       </header>
 
-      {/* Content */}
       <div className="prose prose-neutral dark:prose-invert max-w-none">
-        <MDXRemote
-          source={content}
-          components={BlogComponents}
-          options={{
-            mdxOptions: {
-              rehypePlugins: [
-                [
-                  rehypeHighlight,
-                  {
-                    theme: 'github-dark',
-                  },
+        {format === 'markdown' ? (
+          <ReactMarkdown remarkPlugins={[remarkGfm]} components={BlogComponents}>
+            {content}
+          </ReactMarkdown>
+        ) : (
+          <MDXRemote
+            source={content}
+            components={BlogComponents}
+            options={{
+              mdxOptions: {
+                rehypePlugins: [
+                  [
+                    rehypeHighlight,
+                    {
+                      theme: 'github-dark',
+                    },
+                  ],
                 ],
-              ],
-            },
-          }}
-        />
+              },
+            }}
+          />
+        )}
       </div>
     </article>
   );

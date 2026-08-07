@@ -1,46 +1,40 @@
-import Container from '@/components/common/Container';
 import SectionDivider from '@/components/common/SectionDivider';
-// import Blog from '@/components/landing/Blog';
-import CTA from '@/components/landing/CTA';
+import { Quote } from '@/components/common/Quote';
+import AboutMe from '@/components/landing/AboutMe';
+// import Achievements from '@/components/landing/Achievements';
+import Blog from '@/components/landing/Blog';
 import Experience from '@/components/landing/Experience';
-import Github from '@/components/landing/Github';
 import Hero from '@/components/landing/Hero';
+import Newsletter from '@/components/landing/Newsletter';
 import OpenSourceContributions from '@/components/landing/OpenSourceContributions';
-// import Journey from '@/components/landing/Journey';
 import Work from '@/components/landing/Projects';
-// import Setup from '@/components/landing/Setup';
+import Skills from '@/components/landing/Skills';
+import Testimonials from '@/components/landing/Testimonials';
 import React from 'react';
+
+/** Keep homepage blog preview in sync with Dev.to publishes */
+export const revalidate = 3600;
 
 export default function page() {
   return (
-    <Container className="min-h-screen py-16">
-      <Hero />
+    <main>
+      <div className="content-column content-column-dashed relative mx-auto">
+        <Hero />
 
-      <SectionDivider />
+        {/* Titled sections own their top/bottom rules — no extra dividers between them */}
+        <Experience />
+        <Work />
+        <OpenSourceContributions />
+        <Skills />
+        {/* <Achievements /> */}
+        <Blog />
+        <Testimonials />
+        <AboutMe />
+        <Newsletter />
 
-      <Experience />
-
-      <SectionDivider />
-
-      <Work />
-
-      <SectionDivider />
-
-      <Github />
-
-      <SectionDivider />
-
-      <OpenSourceContributions />
-
-      <SectionDivider />
-
-      {/* Blog */}
-      {/* <Blog /> */}
-
-      {/* <SectionDivider /> */}
-      <CTA />
-      {/* <Setup /> */}
-      {/* <Journey /> */}
-    </Container>
+        <SectionDivider />
+        <Quote />
+      </div>
+    </main>
   );
 }

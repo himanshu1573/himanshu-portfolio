@@ -1,122 +1,223 @@
-import { heroConfig, skillComponents, socialLinks } from '@/config/Hero';
+'use client';
+
+import { heroConfig, socialLinks } from '@/config/Hero';
 import { parseTemplate } from '@/lib/hero';
 import { cn } from '@/lib/utils';
+import { Pixelify_Sans } from 'next/font/google';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import Container from '../common/Container';
-import Skill from '../common/Skill';
-import CV from '../svgs/CV';
-import Chat from '../svgs/Chat';
+import DashedHorizontalRule from '../common/DashedHorizontalRule';
+import { ThemeToggleButton } from '../common/ThemeSwitch';
+import Calendar from '../svgs/Calender';
+import Mail from '../svgs/Mail';
 import { Button } from '../ui/button';
+import ThermodynamicGrid from '../ui/interactive-thermodynamic-grid';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import CodingStatus from './CodingStatus';
+import GithubHeatmap from './GithubHeatmap';
+import SpotifyWidget from './SpotifyWidget';
+
+const pixelify = Pixelify_Sans({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+});
 
 const buttonIcons = {
-  CV: CV,
-  Chat: Chat,
+  Calendar: Calendar,
+  Mail: Mail,
 };
 
-export default function Hero() {
-  const { name, title, avatar, skills, description, buttons } = heroConfig;
+function RotatingTitle({ titles }: { titles: string[] }) {
+  const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
 
-  const renderDescription = () => {
-    const parts = parseTemplate(description.template, skills);
+  useEffect(() => {
+    if (titles.length <= 1) return;
 
-    return parts.filter(Boolean).map((part) => {
-      if (!part) return null;
+    const interval = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setIndex((i) => (i + 1) % titles.length);
+        setVisible(true);
+      }, 300);
+    }, 2500);
 
-      if (part.type === 'skill' && 'skill' in part && part.skill) {
-        const SkillComponent =
-          skillComponents[part.skill.component as keyof typeof skillComponents];
+    return () => clearInterval(interval);
+  }, [titles]);
 
-        return (
-          <Skill key={part.key} name={part.skill.name} href={part.skill.href}>
-            <SkillComponent />
-          </Skill>
-        );
-      } else if (part.type === 'bold' && 'text' in part) {
-        return (
-          <b key={part.key} className="text-primary">
-            {part.text}
-          </b>
-        );
-      } else if (part.type === 'text' && 'text' in part) {
-        return <span key={part.key}>{part.text}</span>;
-      }
-      return null;
-    });
-  };
+  const label = titles[index] ?? titles[0] ?? '';
 
   return (
-    <Container className="mx-auto max-w-5xl">
-      {/* Image with Coding Status Dot */}
-      <div className="relative inline-block">
-        <Image
-          src={avatar}
-          alt="hero"
-          width={100}
-          height={100}
-          className="size-24 rounded-full bg-blue-300 dark:bg-yellow-300"
-        />
-        {/* Status dot positioned at bottom-right of avatar */}
-        <div className="absolute -right-1 -bottom-1">
-          <CodingStatus />
-        </div>
-      </div>
+    <p
+      className={cn(
+        'h-5 text-sm text-muted-foreground transition-all duration-300',
+        visible ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0',
+      )}
+      aria-live="polite"
+    >
+      {label}
+    </p>
+  );
+}
 
-      {/* Text Area */}
-      <div className="mt-8 flex flex-col gap-2">
-        <h1 className="text-4xl font-bold">
-          Hi, I&apos;m {name} — <span className="text-secondary">{title}</span>
-        </h1>
+function HeroBio() {
+  const parts = parseTemplate(
+    heroConfig.description.template,
+    heroConfig.skills,
+  );
 
-        <div className="mt-4 text-base leading-loose text-neutral-500 md:text-lg">
-          {renderDescription()}
-        </div>
-      </div>
+  return (
+    <p className="text-sm leading-relaxed text-muted-foreground">
+      {parts.map((part) => {
+        if (!part) return null;
 
-      {/* Buttons */}
-      <div className="mt-8 flex gap-4">
-        {buttons.map((button, index) => {
-          const IconComponent =
-            buttonIcons[button.icon as keyof typeof buttonIcons];
+        if (part.type === 'skill' && part.skill) {
+          const name = part.skill.name;
           return (
-            <Button
-              key={index}
-              variant={button.variant as 'outline' | 'default'}
-              className={cn(
-                button.variant === 'outline' && 'inset-shadow-indigo-500',
-                button.variant === 'default' && 'inset-shadow-indigo-500',
-              )}
-            >
-              {IconComponent && <IconComponent />}
-              <Link href={button.href}>{button.text}</Link>
-            </Button>
+            <strong key={part.key} className="text-foreground">
+              {name}
+            </strong>
           );
-        })}
+        }
+
+        if (part.type === 'bold') {
+          return (
+            <strong key={part.key} className="text-foreground">
+              {part.text}
+            </strong>
+          );
+        }
+
+        return <span key={part.key}>{part.text}</span>;
+      })}
+    </p>
+  );
+}
+
+export default function Hero() {
+  const { name, title, titles, avatar, buttons } = heroConfig;
+  const rotatingTitles =
+    titles?.length > 0 ? titles : title ? [title] : ['Engineer'];
+
+  return (
+    <div className="w-full">
+      {/* ── SS Monogram Banner + interactive heat grid ── */}
+      <div className="relative flex min-h-[200px] items-center justify-center overflow-hidden">
+        <ThermodynamicGrid resolution={12} coolingFactor={0.96} />
+        <div className="pointer-events-none relative z-10 flex flex-col items-center gap-2">
+          <span
+            className={cn(
+              pixelify.className,
+              'select-none text-6xl font-bold text-white/90 sm:text-7xl',
+            )}
+            style={{ letterSpacing: '0.12em' }}
+          >
+            SS
+          </span>
+          <span className="text-[11px] font-medium tracking-wide text-white/45">
+            Hover me
+          </span>
+        </div>
       </div>
 
-      {/* Social Links */}
-      <div className="mt-8 flex gap-2">
-        {socialLinks.map((link) => (
-          <Tooltip key={link.name} delayDuration={0}>
-            <TooltipTrigger asChild>
-              <Link
-                href={link.href}
-                key={link.name}
-                className="text-secondary flex items-center gap-2"
-              >
-                <span className="size-6">{link.icon}</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{link.name}</p>
-            </TooltipContent>
-          </Tooltip>
-        ))}
+      <DashedHorizontalRule />
+
+      <div className="px-6">
+        {/* ── Profile Header Row ── */}
+        <div className="flex items-center justify-between gap-4 py-5">
+          <div className="flex items-center gap-4">
+            <div className="relative inline-block shrink-0">
+              <Image
+                src={avatar}
+                alt={name}
+                width={96}
+                height={96}
+                className="size-24 rounded-full bg-muted object-cover"
+                priority
+              />
+              <div className="absolute -right-0.5 -bottom-0.5">
+                <CodingStatus />
+              </div>
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <h1 className="text-2xl font-bold leading-tight">{name}</h1>
+              <RotatingTitle titles={rotatingTitles} />
+            </div>
+          </div>
+          <ThemeToggleButton variant="circle" start="top-right" blur />
+        </div>
+
+        <DashedHorizontalRule />
+
+        {/* ── Bio + Buttons + Socials ── */}
+        <div className="flex flex-col gap-5 py-6">
+          <HeroBio />
+
+          <SpotifyWidget />
+
+          <div className="flex flex-wrap gap-3">
+            {buttons.map((button, index) => {
+              const IconComponent =
+                buttonIcons[button.icon as keyof typeof buttonIcons];
+              const isExternal =
+                button.href.startsWith('http') ||
+                button.href.startsWith('mailto');
+              return (
+                <Button
+                  key={index}
+                  variant={button.variant as 'outline' | 'default'}
+                  size="sm"
+                  className="rounded-full"
+                  asChild
+                >
+                  <Link
+                    href={button.href}
+                    {...(isExternal
+                      ? { target: '_blank', rel: 'noopener noreferrer' }
+                      : {})}
+                    className="flex items-center gap-2"
+                  >
+                    {IconComponent && <IconComponent />}
+                    {button.text}
+                  </Link>
+                </Button>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p className="text-xs text-muted-foreground">Here are my socials</p>
+            <div className="flex flex-wrap gap-2">
+              {socialLinks.map((link) => (
+                <Tooltip key={link.name} delayDuration={0}>
+                  <TooltipTrigger asChild>
+                    <Link
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 rounded-full border border-[var(--dashed-border)] px-3 py-1.5 text-xs text-foreground transition-colors hover:bg-muted"
+                    >
+                      <span className="size-3.5">{link.icon}</span>
+                      <span>{link.name}</span>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{link.name}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <DashedHorizontalRule />
+
+        <div className="py-6">
+          <GithubHeatmap />
+        </div>
       </div>
-    </Container>
+    </div>
   );
 }

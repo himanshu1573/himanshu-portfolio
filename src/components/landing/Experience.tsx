@@ -1,26 +1,23 @@
+'use client';
+
 import { type Experience, experiences } from '@/config/Experience';
-import { Link } from 'next-view-transitions';
 import React from 'react';
 
-import Container from '../common/Container';
-import SectionHeading from '../common/SectionHeading';
-import { ExperienceCard } from '../experience/ExperienceCard';
-import { Button } from '../ui/button';
+import SectionTitle from '../common/SectionTitle';
+import InlineExperienceCard from './InlineExperienceCard';
 
 export default function Experience() {
   return (
-    <Container className="mt-20">
-      <SectionHeading subHeading="Featured" heading="Experience" />
-      <div className="mt-4 flex flex-col gap-8">
-        {experiences.slice(0, 2).map((experience: Experience) => (
-          <ExperienceCard key={experience.company} experience={experience} />
+    <section className="pb-10">
+      <SectionTitle>Experiences</SectionTitle>
+      <div className="flex w-full flex-col px-6 pt-6">
+        {experiences.map((experience: Experience) => (
+          <InlineExperienceCard
+            key={experience.company}
+            experience={experience}
+          />
         ))}
       </div>
-      <div className="mt-8 flex justify-center">
-        <Button variant="outline">
-          <Link href="/work-experience">Show all work experiences</Link>
-        </Button>
-      </div>
-    </Container>
+    </section>
   );
 }

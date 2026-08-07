@@ -1,3 +1,36 @@
+export interface Achievement {
+  title: string;
+  organization: string;
+  date: string;
+  href?: string;
+  icon?: 'trophy' | 'medal' | 'star';
+}
+
+export const achievements: Achievement[] = [
+  {
+    title: 'Obtained SSoC Certificate for open source contributions',
+    organization: 'Summer of Code (SSoC)',
+    date: '10 Oct, 2025',
+    href: '/blog/frontend-part-1.png',
+    icon: 'trophy',
+  },
+  {
+    title: 'Active LeetCode problem solver — consistent DSA practice',
+    organization: 'LeetCode',
+    date: 'Ongoing',
+    href: 'https://leetcode.com/u/saurabhsingh881888/',
+    icon: 'medal',
+  },
+  {
+    title: 'Built and shipped multiple AI-powered MVPs',
+    organization: 'Personal Projects',
+    date: '2024 - 2025',
+    href: '/projects',
+    icon: 'star',
+  },
+];
+
+/** Legacy certificate gallery data (used on certificates page if needed) */
 export const certificates = [
   {
     file: '/blog/frontend-part-1.png',
@@ -26,6 +59,7 @@ export const certificates = [
 ];
 
 const achievementsConfig = {
+  achievements,
   certificates,
 };
 

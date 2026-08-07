@@ -1,25 +1,36 @@
 'use client';
 
 import { projects } from '@/config/Projects';
-import { Link } from 'next-view-transitions';
 import React from 'react';
 
-import Container from '../common/Container';
-import SectionHeading from '../common/SectionHeading';
+import DashedHorizontalRule from '../common/DashedHorizontalRule';
+import SectionTitle from '../common/SectionTitle';
+import ViewAllButton from '../common/ViewAllButton';
 import { ProjectList } from '../projects/ProjectList';
-import { Button } from '../ui/button';
 
 export default function Projects() {
   return (
-    <Container className="mt-20 max-w-5xl">
-      <SectionHeading subHeading="Featured" heading="Projects" />
+    <section className="pb-10">
+      <SectionTitle>Projects</SectionTitle>
 
-      <ProjectList className="mt-8" projects={projects.slice(0, 4)} />
-      <div className="mt-8 flex justify-center">
-        <Button variant="outline">
-          <Link href="/projects">Show all projects</Link>
-        </Button>
+      {/* Mid vertical lives here so it spans flush from title rule → View All rule */}
+      <div className="relative">
+        <div
+          className="projects-grid-mid pointer-events-none absolute inset-y-0 left-1/2 z-[1] hidden w-px -translate-x-1/2 md:block"
+          aria-hidden="true"
+        />
+
+        <div className="px-6">
+          <ProjectList projects={projects.slice(0, 4)} showMid={false} />
+        </div>
       </div>
-    </Container>
+
+      {/* End-to-end dashed rules (same as section headings) */}
+      <DashedHorizontalRule />
+      <div className="flex justify-center py-4">
+        <ViewAllButton href="/projects">View All</ViewAllButton>
+      </div>
+      <DashedHorizontalRule />
+    </section>
   );
 }

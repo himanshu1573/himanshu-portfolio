@@ -23,6 +23,26 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'images-na.ssl-images-amazon.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'media2.dev.to',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.dev.to',
+      },
+      {
+        protocol: 'https',
+        hostname: 'dev-to-uploads.s3.us-east-2.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'opengraph.githubassets.com',
+      },
     ],
   },
 };

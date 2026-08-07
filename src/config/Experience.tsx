@@ -16,6 +16,8 @@ export interface Technology {
   icon: React.ReactNode;
 }
 
+export type EmploymentType = 'Full Time' | 'Internship' | 'Freelance' | 'Contract';
+
 export interface Experience {
   company: string;
   position: string;
@@ -31,12 +33,14 @@ export interface Experience {
   technologies: Technology[];
   isCurrent: boolean;
   isBlur?: boolean;
+  employmentType?: EmploymentType;
 }
 
 export const experiences: Experience[] = [
   {
-    isCurrent: true,
-    isBlur: true,
+    isCurrent: false,
+    isBlur: false,
+    employmentType: 'Internship',
     company: 'Detoxio',
     position: 'AI Full Stack Intern',
     location: 'Remote',
@@ -49,7 +53,7 @@ export const experiences: Experience[] = [
       'Collaborating on innovative AI projects that push the boundaries of applied artificial intelligence.',
     ],
     startDate: 'March 2025',
-    endDate: 'Present',
+    endDate: 'June 2026',
     technologies: [
       {
         name: 'Python',
@@ -104,6 +108,7 @@ export const experiences: Experience[] = [
   },
   {
     isCurrent: false,
+    employmentType: 'Full Time',
     company: 'Bithive Technology',
     position: 'Chief Technology Officer (CTO)',
     location: 'Freelance Agency',

@@ -7,7 +7,9 @@
 
 export const githubConfig = {
   username: 'Saurabhsing21',
-  apiUrl: 'https://github-contributions-api.deno.dev',
+  // Deno Deploy Classic sunset Jul 2026 — use jogruber's maintained API
+  apiUrl: 'https://github-contributions-api.jogruber.de/v4',
+
 
   // Display settings
   title: 'GitHub Activity',
@@ -44,20 +46,21 @@ export const githubConfig = {
   // Theme configuration for dark and light modes
   theme: {
     dark: [
-      'rgb(22, 27, 34)', // Very dark for no contributions
-      'rgb(14, 68, 41)', // Dark green
-      'rgb(0, 109, 50)', // Medium green
-      'rgb(38, 166, 65)', // Bright green
-      'rgb(57, 211, 83)', // Very bright green
+      'rgb(30, 30, 30)',   // Level 0 — near-black background
+      'rgb(80, 80, 80)',   // Level 1 — dark gray
+      'rgb(130, 130, 130)', // Level 2 — medium gray
+      'rgb(190, 190, 190)', // Level 3 — light gray
+      'rgb(240, 240, 240)', // Level 4 — near-white
     ],
     light: [
-      'rgb(235, 237, 240)', // Light gray
-      'rgb(155, 233, 168)', // Light green
-      'rgb(64, 196, 99)', // Medium green
-      'rgb(48, 161, 78)', // Dark green
-      'rgb(33, 110, 57)', // Very dark green
+      'rgb(235, 235, 235)', // Level 0 — very light gray
+      'rgb(180, 180, 180)', // Level 1 — light gray
+      'rgb(120, 120, 120)', // Level 2 — medium gray
+      'rgb(70, 70, 70)',   // Level 3 — dark gray
+      'rgb(20, 20, 20)',   // Level 4 — near-black
     ],
   },
+
 
   // Error state configuration
   errorState: {

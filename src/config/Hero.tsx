@@ -24,8 +24,8 @@
  * That's it! Your portfolio will automatically update with your information.
  */
 import Github from '@/components/svgs/Github';
+import LeetCode from '@/components/svgs/LeetCode';
 import LinkedIn from '@/components/svgs/LinkedIn';
-import Mail from '@/components/svgs/Mail';
 import X from '@/components/svgs/X';
 import AgenticAI from '@/components/technologies/AgenticAI';
 import Bun from '@/components/technologies/Bun';
@@ -61,8 +61,15 @@ export const skillComponents = {
 
 export const heroConfig = {
   // Personal Information
-  name: 'Saurabh',
+  name: 'Saurabh Singh',
   title: 'AI Full Stack Engineer',
+  /** Rotating roles under the name */
+  titles: [
+    'AI Engineer',
+    'Full Stack Engineer',
+    'Backend Engineer',
+    'Freelancer',
+  ],
   avatar: '/assets/logo.png',
 
   // Skills Configuration
@@ -113,16 +120,16 @@ export const heroConfig = {
   // Buttons Configuration
   buttons: [
     {
-      variant: 'outline',
-      text: 'Resume / CV',
-      href: '/resume',
-      icon: 'CV',
+      variant: 'default',
+      text: 'Book an intro call',
+      href: 'https://cal.com/gitsaurabh/discovery-call',
+      icon: 'Calendar',
     },
     {
-      variant: 'default',
-      text: 'Get in touch',
-      href: '/contact',
-      icon: 'Chat',
+      variant: 'outline',
+      text: 'Send an email',
+      href: 'mailto:saurabhsingh881888@gmail.com',
+      icon: 'Mail',
     },
   ],
 };
@@ -130,23 +137,23 @@ export const heroConfig = {
 // Social Links Configuration
 export const socialLinks = [
   {
-    name: 'X',
-    href: 'https://x.com/gitsaurabh0',
-    icon: <X />,
-  },
-  {
-    name: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/saurabh-singh-027006328/',
-    icon: <LinkedIn />,
-  },
-  {
     name: 'Github',
     href: 'https://github.com/Saurabhsing21',
     icon: <Github />,
   },
   {
-    name: 'Email',
-    href: 'mailto:saurabhsingh881888@gmail.com',
-    icon: <Mail />,
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/gitsaurabhsingh/',
+    icon: <LinkedIn />,
+  },
+  {
+    name: 'X',
+    href: 'https://x.com/gitsaurabh0',
+    icon: <X />,
+  },
+  {
+    name: 'LeetCode',
+    href: 'https://leetcode.com/u/saurabhsingh881888/',
+    icon: <LeetCode />,
   },
 ];

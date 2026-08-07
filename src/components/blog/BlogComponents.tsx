@@ -1,115 +1,67 @@
 import Image from 'next/image';
 import React from 'react';
+import type { Components } from 'react-markdown';
 
 import { CodeCopyButton } from './CodeCopyButton';
 
-export const BlogComponents = {
-  // Override default image component
-  img: ({
-    src,
-    alt,
-    ...props
-  }: {
-    src: string;
-    alt: string;
-    [key: string]: unknown;
-  }) => (
-    <Image
-      src={src}
-      alt={alt}
-      width={800}
-      height={400}
-      className="rounded-lg"
-      {...props}
-    />
-  ),
-  // Custom heading with better styling
-  h1: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
+export const BlogComponents: Components = {
+  img: ({ src, alt }) => {
+    if (!src || typeof src !== 'string') return null;
+
+    // Remote Dev.to / CDN images — plain img avoids next/image host allowlist issues
+    if (src.startsWith('http')) {
+      return (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={src} alt={alt || ''} className="rounded-lg" />
+      );
+    }
+
+    return (
+      <Image
+        src={src}
+        alt={alt || ''}
+        width={800}
+        height={400}
+        className="rounded-lg"
+      />
+    );
+  },
+  h1: ({ children, ...props }) => (
     <h1 className="mb-6 text-4xl font-bold" {...props}>
       {children}
     </h1>
   ),
-  h2: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
+  h2: ({ children, ...props }) => (
     <h2 className="mt-8 mb-4 text-3xl font-semibold" {...props}>
       {children}
     </h2>
   ),
-  h3: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
+  h3: ({ children, ...props }) => (
     <h3 className="mt-6 mb-3 text-2xl font-medium" {...props}>
       {children}
     </h3>
   ),
-  // Custom paragraph styling
-  p: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
+  p: ({ children, ...props }) => (
     <p className="text-muted-foreground mb-4 leading-7" {...props}>
       {children}
     </p>
   ),
-  // Custom list styling
-  ul: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
+  ul: ({ children, ...props }) => (
     <ul className="mb-4 ml-6 list-disc space-y-2" {...props}>
       {children}
     </ul>
   ),
-  ol: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
+  ol: ({ children, ...props }) => (
     <ol className="mb-4 ml-6 list-decimal space-y-2" {...props}>
       {children}
     </ol>
   ),
-  li: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
+  li: ({ children, ...props }) => (
     <li className="text-muted-foreground leading-7" {...props}>
       {children}
     </li>
   ),
-  pre: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => {
+  pre: ({ children, ...props }) => {
     const getTextContent = (node: React.ReactNode): string => {
       if (typeof node === 'string') {
         return node;
@@ -146,17 +98,7 @@ export const BlogComponents = {
       </div>
     );
   },
-  // Inline code styling (not affected by syntax highlighting)
-  code: ({
-    children,
-    className,
-    ...props
-  }: {
-    children: React.ReactNode;
-    className?: string;
-    [key: string]: unknown;
-  }) => {
-    // If it's part of a pre block (syntax highlighted), don't apply inline styling
+  code: ({ children, className, ...props }) => {
     if (className?.includes('language-')) {
       return (
         <code className={className} {...props}>
@@ -165,21 +107,13 @@ export const BlogComponents = {
       );
     }
 
-    // Inline code styling
     return (
       <code className="rounded px-2 py-1 font-mono text-sm" {...props}>
         {children}
       </code>
     );
   },
-  // Custom blockquote styling
-  blockquote: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
+  blockquote: ({ children, ...props }) => (
     <blockquote
       className="border-primary text-muted-foreground mb-4 border-l-4 pl-4 italic"
       {...props}
