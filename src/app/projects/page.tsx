@@ -5,20 +5,7 @@ import { generateMetadata as getMetadata } from '@/config/Meta';
 import { projects } from '@/config/Projects';
 import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  ...getMetadata('/projects'),
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-};
+export const metadata: Metadata = getMetadata('/projects');
 
 export default function ProjectsPage() {
   return (
@@ -27,13 +14,13 @@ export default function ProjectsPage() {
         <SectionTitle>Projects</SectionTitle>
 
         <div className="space-y-4 px-6 pt-4 pb-4">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             My projects and work across different technologies and domains.
           </p>
-          <h2 className="text-sm font-semibold text-foreground">
+          <h2 className="text-foreground text-sm font-semibold">
             All Projects
             {projects.length > 0 && (
-              <span className="ml-2 text-sm font-normal text-muted-foreground">
+              <span className="text-muted-foreground ml-2 text-sm font-normal">
                 ({projects.length}{' '}
                 {projects.length === 1 ? 'project' : 'projects'})
               </span>

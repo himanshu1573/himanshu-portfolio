@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import { about } from './About';
 import { heroConfig } from './Hero';
 
@@ -160,7 +162,7 @@ export function getPageMetadata(pathname: string): PageMeta {
 }
 
 // Helper function to generate complete metadata object for Next.js
-export function generateMetadata(pathname: string) {
+export function generateMetadata(pathname: string): Metadata {
   const pageMeta = getPageMetadata(pathname);
 
   return {
