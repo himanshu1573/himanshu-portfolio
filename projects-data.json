@@ -1,6 +1,55 @@
 {
   "projects": [
     {
+      "title": "Nirdesh AI",
+      "role": "AI Voice / Full Stack Engineer",
+      "techStack": ["Voice AI", "Agentic AI", "FastAPI", "LangGraph"],
+      "date": "2026",
+      "shortDescription": "Ask questions, manage todos, search the web — all by voice. An instrumented multilingual voice agent featuring real-time STT, LangGraph agent, streaming TTS, and local VAD.",
+      "overview": "Nirdesh AI is an instrumented multilingual voice agent built as a sandwich architecture: streaming speech-to-text feeds a LangGraph-backed text agent, then streaming text-to-speech returns PCM audio to the browser.",
+      "keyFeatures": [
+        {
+          "name": "Multilingual Voice Loop",
+          "description": "Powered by Saaras v3 STT, sarvam-105b LLM, and Bulbul v3 TTS.",
+          "detail": "Delivers real-time spoken interactions across multiple languages."
+        },
+        {
+          "name": "Silero ONNX VAD",
+          "description": "Local 32 ms frames, speech pre-roll, 500 ms endpointing, and silence gating.",
+          "detail": "Filters background noise and manages precise voice activity detection."
+        },
+        {
+          "name": "Barge-in Control",
+          "description": "Cancels generation, tears down active TTS socket, flushes playback, and truncates history.",
+          "detail": "Ensures responsive interruption when user speaks during assistant audio playback."
+        },
+        {
+          "name": "LangChain Tools",
+          "description": "Server-side Exa web search and browser-proxied local todo management.",
+          "detail": "Empowers voice agent to perform web queries and manage client state."
+        },
+        {
+          "name": "Billing & Wallet",
+          "description": "Paise-denominated wallet with per-second voice session billing.",
+          "detail": "Enforces real-time balance tracking, warnings, and session cutoff."
+        }
+      ],
+      "technologies": [
+        "FastAPI",
+        "LangGraph",
+        "Python",
+        "React 19",
+        "TypeScript",
+        "Docker",
+        "Tailwind CSS"
+      ],
+      "links": {
+        "github": "https://github.com/Saurabhsing21/NirdeshAI",
+        "live": "https://github.com/Saurabhsing21/NirdeshAI"
+      },
+      "image": "/project/nirdesh-ai.png"
+    },
+    {
       "title": "Lumina",
       "role": "AI Full Stack Engineer",
       "techStack": ["Artificial Intelligence", "Agentic AI", "Full Stack"],
@@ -48,6 +97,104 @@
         "live": "https://perpelexity.vercel.app/"
       },
       "image": "/project/lumina.png"
+    },
+    {
+      "title": "Drug Discovery",
+      "role": "AI / Full Stack Engineer",
+      "techStack": ["LangGraph", "MCP", "Agentic AI", "FastAPI"],
+      "date": "2026",
+      "shortDescription": "Enterprise-grade multi-agent AI system for drug-target prioritisation across DepMap, Open Targets, Pharos, and Europe PMC.",
+      "overview": "Drug Discovery Agent automates end-to-end drug-target prioritisation with a LangGraph orchestrator, MCP-connected biomedical databases, deterministic scoring, and human-in-the-loop review gates.",
+      "keyFeatures": [
+        {
+          "name": "LangGraph Pipeline",
+          "description": "Planning, parallel collection, normalisation, scoring, evidence graphs, and synthesis.",
+          "detail": "Stateful DAG with checkpointing and resumability for reproducible research runs."
+        },
+        {
+          "name": "MCP Data Layer",
+          "description": "Parallel queries across DepMap, Pharos, Open Targets, and Europe PMC.",
+          "detail": "Standardised tool protocol decouples source connectors from pipeline logic."
+        },
+        {
+          "name": "Deterministic Scoring",
+          "description": "Weighted multi-source druggability scores with conflict detection.",
+          "detail": "Produces tiered recommendations with full provenance tracing."
+        },
+        {
+          "name": "Human-in-the-Loop",
+          "description": "Optional plan approval and review gates before dossier acceptance.",
+          "detail": "Researchers can approve, modify, or request more evidence."
+        },
+        {
+          "name": "Research Workbench",
+          "description": "FastAPI + Next.js UI with live SSE progress and follow-up Q&A.",
+          "detail": "Evidence carousel, conflict visualisation, and compare mode for gene dossiers."
+        }
+      ],
+      "technologies": [
+        "LangGraph",
+        "FastAPI",
+        "Python",
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Docker"
+      ],
+      "links": {
+        "github": "https://github.com/Saurabhsing21/Drug-discovery-agent/",
+        "live": "https://github.com/Saurabhsing21/Drug-discovery-agent/"
+      },
+      "image": "/project/drug-discovery.png"
+    },
+    {
+      "title": "ExploitDB RAG",
+      "role": "AI / Full Stack Engineer",
+      "techStack": ["RAG", "FastAPI", "ChromaDB", "OpenAI"],
+      "date": "2024",
+      "shortDescription": "AI-powered exploit intelligence system with RAG over 46,000+ ExploitDB entries, intent-aware retrieval, and hallucination validation.",
+      "overview": "ExploitDB RAG is a Retrieval-Augmented Generation assistant for searching and analyzing exploits from ExploitDB with intent-aware retrieval, hybrid semantic search, and response validation.",
+      "keyFeatures": [
+        {
+          "name": "Exploit Intelligence",
+          "description": "Search 46K+ ExploitDB entries by CVE, software, or natural language.",
+          "detail": "Indexes the full ExploitDB corpus for fast exploit discovery."
+        },
+        {
+          "name": "Intent-Aware Retrieval",
+          "description": "Classifies queries and extracts security entities for routing.",
+          "detail": "Chooses exact CVE match or semantic similarity based on intent."
+        },
+        {
+          "name": "Hybrid Search",
+          "description": "ChromaDB vector search with HuggingFace embeddings.",
+          "detail": "Combines keyword precision with semantic recall."
+        },
+        {
+          "name": "Hallucination Validation",
+          "description": "Verifies LLM answers against retrieved source documents.",
+          "detail": "Keeps generated exploit analysis grounded in real entries."
+        },
+        {
+          "name": "Exploit Customization",
+          "description": "Adapts retrieved exploit code to specified target environments.",
+          "detail": "Uses structured prompts to tailor payloads for OS and stack context."
+        }
+      ],
+      "technologies": [
+        "FastAPI",
+        "Python",
+        "React",
+        "TypeScript",
+        "LangChain",
+        "HuggingFace",
+        "OpenAI"
+      ],
+      "links": {
+        "github": "https://github.com/Saurabhsing21/Exploitdb_Rag/",
+        "live": "https://github.com/Saurabhsing21/Exploitdb_Rag/"
+      },
+      "image": "/project/exploitdb.png"
     },
     {
       "title": "Wealth",

@@ -3,15 +3,15 @@
 import { heroConfig, socialLinks } from '@/config/Hero';
 import { parseTemplate } from '@/lib/hero';
 import { cn } from '@/lib/utils';
-import { Pixelify_Sans } from 'next/font/google';
 import { Link } from 'next-view-transitions';
+import { Pixelify_Sans } from 'next/font/google';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 import DashedHorizontalRule from '../common/DashedHorizontalRule';
 import { ThemeToggleButton } from '../common/ThemeSwitch';
+import CV from '../svgs/CV';
 import Calendar from '../svgs/Calender';
-import Mail from '../svgs/Mail';
 import { Button } from '../ui/button';
 import ThermodynamicGrid from '../ui/interactive-thermodynamic-grid';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
@@ -26,7 +26,7 @@ const pixelify = Pixelify_Sans({
 
 const buttonIcons = {
   Calendar: Calendar,
-  Mail: Mail,
+  CV: CV,
 };
 
 function RotatingTitle({ titles }: { titles: string[] }) {
@@ -52,7 +52,7 @@ function RotatingTitle({ titles }: { titles: string[] }) {
   return (
     <p
       className={cn(
-        'h-5 text-sm text-muted-foreground transition-all duration-300',
+        'text-muted-foreground h-5 text-sm transition-all duration-300',
         visible ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0',
       )}
       aria-live="polite"
@@ -69,7 +69,7 @@ function HeroBio() {
   );
 
   return (
-    <p className="text-sm leading-relaxed text-muted-foreground">
+    <p className="text-muted-foreground text-sm leading-relaxed">
       {parts.map((part) => {
         if (!part) return null;
 
@@ -110,7 +110,7 @@ export default function Hero() {
           <span
             className={cn(
               pixelify.className,
-              'select-none text-6xl font-bold text-white/90 sm:text-7xl',
+              'text-6xl font-bold text-white/90 select-none sm:text-7xl',
             )}
             style={{ letterSpacing: '0.12em' }}
           >
@@ -134,7 +134,7 @@ export default function Hero() {
                 alt={name}
                 width={96}
                 height={96}
-                className="size-24 rounded-full bg-muted object-cover"
+                className="bg-muted size-24 rounded-full object-cover"
                 priority
               />
               <div className="absolute -right-0.5 -bottom-0.5">
@@ -142,7 +142,7 @@ export default function Hero() {
               </div>
             </div>
             <div className="flex flex-col gap-0.5">
-              <h1 className="text-2xl font-bold leading-tight">{name}</h1>
+              <h1 className="text-2xl leading-tight font-bold">{name}</h1>
               <RotatingTitle titles={rotatingTitles} />
             </div>
           </div>
@@ -163,7 +163,8 @@ export default function Hero() {
                 buttonIcons[button.icon as keyof typeof buttonIcons];
               const isExternal =
                 button.href.startsWith('http') ||
-                button.href.startsWith('mailto');
+                button.href.startsWith('mailto') ||
+                button.href.endsWith('.pdf');
               return (
                 <Button
                   key={index}
@@ -188,7 +189,7 @@ export default function Hero() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <p className="text-xs text-muted-foreground">Here are my socials</p>
+            <p className="text-muted-foreground text-xs">Here are my socials</p>
             <div className="flex flex-wrap gap-2">
               {socialLinks.map((link) => (
                 <Tooltip key={link.name} delayDuration={0}>
@@ -197,7 +198,7 @@ export default function Hero() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 rounded-full border border-[var(--dashed-border)] px-3 py-1.5 text-xs text-foreground transition-colors hover:bg-muted"
+                      className="text-foreground hover:bg-muted flex items-center gap-1.5 rounded-full border border-[var(--dashed-border)] px-3 py-1.5 text-xs transition-colors"
                     >
                       <span className="size-3.5">{link.icon}</span>
                       <span>{link.name}</span>

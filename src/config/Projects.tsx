@@ -1,7 +1,12 @@
 import Bun from '@/components/technologies/Bun';
+import ChatGPT from '@/components/technologies/ChatGPT';
 import Clerk from '@/components/technologies/Clerk';
+import Docker from '@/components/technologies/Docker';
 import ExpressJs from '@/components/technologies/ExpressJs';
+import FastAPI from '@/components/technologies/FastAPI';
 import GSAP from '@/components/technologies/GSAP';
+import HuggingFace from '@/components/technologies/HuggingFace';
+import LangChain from '@/components/technologies/LangChain';
 import Mapbox from '@/components/technologies/Mapbox';
 import MongoDB from '@/components/technologies/MongoDB';
 import NextAuth from '@/components/technologies/NextAuth';
@@ -18,6 +23,42 @@ import WebRTC from '@/components/technologies/WebRTC';
 import { Project } from '@/types/project';
 
 export const projects: Project[] = [
+  {
+    title: 'Nirdesh AI',
+    description:
+      'An instrumented multilingual voice agent featuring real-time speech-to-text, LangGraph tool calling, streaming TTS, and local VAD.',
+    image: '/project/nirdesh-ai.png',
+    link: 'https://github.com/Saurabhsing21/NirdeshAI',
+    technologies: [
+      { name: 'FastAPI', icon: <FastAPI key="fastapi" /> },
+      { name: 'LangGraph', icon: <LangChain key="langgraph" /> },
+      { name: 'Python', icon: <Python key="python" /> },
+      { name: 'React', icon: <ReactIcon key="react" /> },
+      { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
+      { name: 'Docker', icon: <Docker key="docker" /> },
+      { name: 'Tailwind CSS', icon: <TailwindCss key="tailwindcss" /> },
+    ],
+    github: 'https://github.com/Saurabhsing21/NirdeshAI',
+    live: 'https://github.com/Saurabhsing21/NirdeshAI',
+    details: true,
+    projectDetailsPageSlug: '/projects/nirdesh-ai',
+    isWorking: true,
+    detailContent: {
+      overview:
+        'Nirdesh AI is an instrumented multilingual voice agent built as a sandwich architecture: streaming speech-to-text feeds a LangGraph-backed text agent, which pipelines into streaming text-to-speech returning 24 kHz PCM audio over an authenticated WebSocket.',
+      highlightsLabel: 'Nirdesh AI features & system architecture:',
+      highlights: [
+        'Multilingual voice loop using Saaras v3 STT, sarvam-105b LLM, and Bulbul v3 TTS',
+        'Silero ONNX VAD running 32 ms local frames, speech pre-roll, 500 ms endpointing, and silence gating',
+        'Barge-in handling that cancels generation, tears down active TTS sockets, flushes audio, and truncates history',
+        'LangChain tools for server-side Exa web search and browser-proxied local todo management',
+        'Paise-denominated wallet, mock recharge, per-second voice-session billing, warnings, and auto-cutoff',
+        'Full-stack instrumentation with TurnTimer metrics, structured logs, and client latency waterfalls',
+      ],
+      outcome:
+        'A production-style voice platform offering real-time multilingual voice interaction with low-latency streaming and full-stack session instrumentation.',
+    },
+  },
   {
     title: 'Lumina',
     description:
@@ -53,6 +94,78 @@ export const projects: Project[] = [
       ],
       outcome:
         'A high-performance AI search engine combining tool calling, streamed citations, multi-model routing, and credit-gated session management.',
+    },
+  },
+  {
+    title: 'Drug Discovery',
+    description:
+      'Enterprise-grade multi-agent AI system for drug-target prioritisation across DepMap, Open Targets, Pharos, and Europe PMC.',
+    image: '/project/drug-discovery.png',
+    link: 'https://github.com/Saurabhsing21/Drug-discovery-agent/',
+    technologies: [
+      { name: 'LangGraph', icon: <LangChain key="langgraph" /> },
+      { name: 'FastAPI', icon: <FastAPI key="fastapi" /> },
+      { name: 'Python', icon: <Python key="python" /> },
+      { name: 'Next.js', icon: <NextJs key="nextjs" /> },
+      { name: 'React', icon: <ReactIcon key="react" /> },
+      { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
+      { name: 'Docker', icon: <Docker key="docker" /> },
+    ],
+    github: 'https://github.com/Saurabhsing21/Drug-discovery-agent/',
+    live: 'https://github.com/Saurabhsing21/Drug-discovery-agent/',
+    details: true,
+    projectDetailsPageSlug: '/projects/drug-discovery',
+    isWorking: true,
+    detailContent: {
+      overview:
+        'Drug Discovery Agent automates end-to-end drug-target prioritisation with a LangGraph orchestrator, MCP-connected biomedical databases, deterministic scoring with conflict detection, and optional human-in-the-loop plan and review gates.',
+      highlightsLabel: 'Drug Discovery highlights & features:',
+      highlights: [
+        'LangGraph pipeline spanning planning, parallel collection, normalisation, scoring, evidence graphs, and synthesis',
+        'MCP data layer querying DepMap, Pharos, Open Targets, and Europe PMC in parallel',
+        'Deterministic multi-source druggability scoring with conflict severity tiers',
+        'Five-layer memory system for reproducible, auditable research runs',
+        'Optional plan approval and review gates before dossier acceptance',
+        'FastAPI + Next.js research workbench with live SSE progress and follow-up Q&A',
+      ],
+      outcome:
+        'A production-style biomedical research agent that turns multi-database target assessment into a reproducible, traceable dossier in minutes.',
+    },
+  },
+  {
+    title: 'ExploitDB RAG',
+    description:
+      'AI-powered exploit intelligence system with RAG over 46,000+ ExploitDB entries, intent-aware retrieval, and hallucination validation.',
+    image: '/project/exploitdb.png',
+    link: 'https://github.com/Saurabhsing21/Exploitdb_Rag/',
+    technologies: [
+      { name: 'FastAPI', icon: <FastAPI key="fastapi" /> },
+      { name: 'Python', icon: <Python key="python" /> },
+      { name: 'React', icon: <ReactIcon key="react" /> },
+      { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
+      { name: 'LangChain', icon: <LangChain key="langchain" /> },
+      { name: 'HuggingFace', icon: <HuggingFace key="huggingface" /> },
+      { name: 'OpenAI', icon: <ChatGPT key="openai" /> },
+    ],
+    github: 'https://github.com/Saurabhsing21/Exploitdb_Rag/',
+    live: 'https://github.com/Saurabhsing21/Exploitdb_Rag/',
+    details: true,
+    projectDetailsPageSlug: '/projects/exploitdb-rag',
+    isWorking: true,
+    detailContent: {
+      overview:
+        'ExploitDB RAG is a Retrieval-Augmented Generation assistant for searching and analyzing exploits from ExploitDB. It combines intent-aware retrieval, hybrid semantic search, conversational context, and response validation over 46,000+ indexed entries.',
+      highlightsLabel: 'ExploitDB RAG features & capabilities:',
+      highlights: [
+        'Search 46K+ ExploitDB entries by CVE, software name, vulnerability type, or natural language',
+        'Intent classification that routes queries to exact CVE match or semantic similarity search',
+        'Hybrid retrieval with ChromaDB and HuggingFace embeddings',
+        'GPT-4o-mini answers grounded in retrieved exploit documents',
+        'Multi-turn conversation memory for follow-up security queries',
+        'Hallucination validation against source documents and exploit code customization',
+      ],
+      outcome:
+        'A practical pentesting assistant that turns ExploitDB into grounded, conversational exploit intelligence.',
     },
   },
   {

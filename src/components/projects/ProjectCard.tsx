@@ -47,7 +47,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           </p>
 
           {/* Bottom-anchored mockup — shrinks slightly on hover */}
-          <div className="absolute bottom-0 left-1/2 z-10 h-[75%] w-[80%] -translate-x-1/2 rounded-t-[10px] bg-background transition-all duration-300 group-hover:h-[70%]">
+          <div className="bg-background absolute bottom-0 left-1/2 z-10 h-[75%] w-[88%] -translate-x-1/2 rounded-t-[10px] transition-all duration-300 group-hover:h-[70%]">
             <div className="relative h-full w-full overflow-hidden rounded-t-[8px]">
               <Image
                 className="h-full w-full rounded-tl-lg rounded-tr-lg border border-white object-cover dark:border-neutral-800"
@@ -80,7 +80,9 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                         controls
                       />
                     </div>
-                    <DialogTitle className="sr-only">{project.title}</DialogTitle>
+                    <DialogTitle className="sr-only">
+                      {project.title}
+                    </DialogTitle>
                   </DialogContent>
                 </Dialog>
               )}
@@ -92,7 +94,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       {/* Info */}
       <div className="flex flex-1 flex-col gap-1 px-2">
         <div className="flex items-center justify-between gap-2">
-          <h3 className="text-[1.1rem] leading-tight font-bold text-foreground">
+          <h3 className="text-foreground text-[1.1rem] leading-tight font-bold">
             {project.title}
           </h3>
           <div className="flex shrink-0 items-center gap-2">
@@ -148,7 +150,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="size-4 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:-rotate-45"
+            className="size-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:-rotate-45"
             aria-hidden="true"
           >
             <path d="M5 12h14" />

@@ -127,9 +127,9 @@ export const heroConfig = {
     },
     {
       variant: 'outline',
-      text: 'Send an email',
-      href: 'mailto:saurabhsingh881888@gmail.com',
-      icon: 'Mail',
+      text: 'Check my resume',
+      href: '/resume/Saurabh_singh_Ai%20engineer_resume.pdf',
+      icon: 'CV',
     },
   ],
 };

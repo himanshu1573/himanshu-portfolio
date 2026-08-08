@@ -12,16 +12,13 @@ interface PageBackTitleProps {
 }
 
 /**
- * Back-linked page title with dashed rules — matches rudrakumar.in
- * "< Gears Used." pattern.
+ * Back-linked page title with dashed rules.
  */
 export default function PageBackTitle({
   children,
   href = '/',
   className,
 }: PageBackTitleProps) {
-  const title = children.endsWith('.') ? children : `${children}.`;
-
   return (
     <div className={cn('w-full', className)}>
       <DashedHorizontalRule />
@@ -30,7 +27,7 @@ export default function PageBackTitle({
         className="group section-heading flex items-center gap-2 px-6 py-4 transition-opacity hover:opacity-80"
       >
         <ArrowLeft className="size-5 shrink-0 transition-transform group-hover:-translate-x-0.5" />
-        <span>{title}</span>
+        <span>{children}</span>
       </Link>
       <DashedHorizontalRule />
     </div>
