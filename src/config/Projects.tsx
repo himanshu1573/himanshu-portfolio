@@ -1,9 +1,12 @@
+import Bun from '@/components/technologies/Bun';
 import Clerk from '@/components/technologies/Clerk';
+import ExpressJs from '@/components/technologies/ExpressJs';
 import GSAP from '@/components/technologies/GSAP';
 import Mapbox from '@/components/technologies/Mapbox';
 import MongoDB from '@/components/technologies/MongoDB';
 import NextAuth from '@/components/technologies/NextAuth';
 import NextJs from '@/components/technologies/NextJs';
+import PostgreSQL from '@/components/technologies/PostgreSQL';
 import Prisma from '@/components/technologies/Prisma';
 import Python from '@/components/technologies/Python';
 import ReactIcon from '@/components/technologies/ReactIcon';
@@ -15,6 +18,43 @@ import WebRTC from '@/components/technologies/WebRTC';
 import { Project } from '@/types/project';
 
 export const projects: Project[] = [
+  {
+    title: 'Lumina',
+    description:
+      'An AI search agent powered by a custom tool-calling agent loop that intelligently decides when to search the web, streaming cited answers with live sources.',
+    image: '/project/lumina.png',
+    link: 'https://perpelexity.vercel.app/',
+    technologies: [
+      { name: 'Bun', icon: <Bun key="bun" /> },
+      { name: 'Express 5', icon: <ExpressJs key="express" /> },
+      { name: 'React 19', icon: <ReactIcon key="react" /> },
+      { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
+      { name: 'PostgreSQL', icon: <PostgreSQL key="postgresql" /> },
+      { name: 'Prisma', icon: <Prisma key="prisma" /> },
+      { name: 'Tailwind CSS', icon: <TailwindCss key="tailwindcss" /> },
+    ],
+    github: 'https://github.com/Saurabhsing21/Lumina',
+    live: 'https://perpelexity.vercel.app/',
+    details: true,
+    projectDetailsPageSlug: '/projects/lumina',
+    isWorking: true,
+    detailContent: {
+      overview:
+        'Lumina is a production-style AI search assistant built around a tool-first agent loop. Rather than forcing a web search on every query, the LLM autonomously decides when external information is needed, executing Tavily searches iteratively and returning streamed, cited answers with real-time sources.',
+      highlightsLabel: 'Lumina highlights & features:',
+      highlights: [
+        'Tool-first agent loop — the LLM decides when to search, eliminating forced pre-search on every query',
+        'Live web search via Tavily with basic and advanced depth modes (search vs research)',
+        'Streamed, cited answers with NDJSON streaming and inline [1][2] citations tied to real web sources',
+        'Conversation memory retaining the last 20 messages with source markers stripped before LLM ingestion',
+        'Multi-model routing swapping between GPT-4.1, Claude Sonnet 4, and Gemini 2.5 Flash via OpenRouter',
+        'Auth & credit limits powered by Supabase JWT auth and server-side credit gate enforcement',
+        'Follow-up suggestions with the model proposing relevant next questions at the end of each answer',
+      ],
+      outcome:
+        'A high-performance AI search engine combining tool calling, streamed citations, multi-model routing, and credit-gated session management.',
+    },
+  },
   {
     title: 'Crime Alert',
     description:

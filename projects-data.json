@@ -1,6 +1,55 @@
 {
   "projects": [
     {
+      "title": "Lumina",
+      "role": "AI Full Stack Engineer",
+      "techStack": ["Artificial Intelligence", "Agentic AI", "Full Stack"],
+      "date": "2026",
+      "shortDescription": "An AI search agent powered by a custom agent loop that intelligently decides when to use tools like Google/web search to gather real-time information.",
+      "overview": "Lumina is a production-style AI search assistant — tool-calling agent, live web search, cited markdown answers, streaming UI. The agent is tool-first: the LLM decides when to search with no forced pre-search on every query.",
+      "keyFeatures": [
+        {
+          "name": "Tool-First Agent Loop",
+          "description": "The LLM decides when to search, eliminating unnecessary pre-searches.",
+          "detail": "Iteratively alternates between LLM reasoning and external tools until producing grounded responses."
+        },
+        {
+          "name": "Live Web Search",
+          "description": "Powered by Tavily API with basic and advanced depth modes.",
+          "detail": "Supports fast query searches and deep research modes."
+        },
+        {
+          "name": "Streamed, Cited Answers",
+          "description": "NDJSON streaming with inline citations tied to real web sources.",
+          "detail": "Renders markdown responses with click-through source links."
+        },
+        {
+          "name": "Multi-Model Routing",
+          "description": "Swap between GPT-4.1, Claude Sonnet 4, and Gemini 2.5 Flash via OpenRouter.",
+          "detail": "Dynamic model selection for tailored reasoning capabilities."
+        },
+        {
+          "name": "Auth & Credit Limits",
+          "description": "Supabase JWT authentication paired with server-side credit gates.",
+          "detail": "Tracks per-user queries and enforces access boundaries."
+        }
+      ],
+      "technologies": [
+        "Bun",
+        "Express 5",
+        "React 19",
+        "TypeScript",
+        "PostgreSQL",
+        "Prisma",
+        "Tailwind CSS"
+      ],
+      "links": {
+        "github": "https://github.com/Saurabhsing21/Lumina",
+        "live": "https://perpelexity.vercel.app/"
+      },
+      "image": "/project/lumina.png"
+    },
+    {
       "title": "Wealth",
       "role": "UI/UX Designer",
       "techStack": ["Artificial Intelligence", "Technology"],
