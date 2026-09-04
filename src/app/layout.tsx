@@ -24,7 +24,7 @@ export default function RootLayout({
         <body className={`font-hanken-grotesk antialiased`}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
