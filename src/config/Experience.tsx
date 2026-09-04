@@ -1,14 +1,14 @@
+import AWS from '@/components/technologies/AWS';
 import Docker from '@/components/technologies/Docker';
+import FastAPI from '@/components/technologies/FastAPI';
+import GCloud from '@/components/technologies/GCloud';
 import LangChain from '@/components/technologies/LangChain';
-import MongoDB from '@/components/technologies/MongoDB';
 import NextJs from '@/components/technologies/NextJs';
 import NodeJs from '@/components/technologies/NodeJs';
 import PostgreSQL from '@/components/technologies/PostgreSQL';
 import Python from '@/components/technologies/Python';
 import ReactIcon from '@/components/technologies/ReactIcon';
-import TailwindCss from '@/components/technologies/TailwindCss';
 import TypeScript from '@/components/technologies/TypeScript';
-import Vercel from '@/components/technologies/Vercel';
 
 export interface Technology {
   name: string;
@@ -38,22 +38,21 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
-    isCurrent: false,
+    isCurrent: true,
     isBlur: false,
     employmentType: 'Internship',
-    company: 'Detoxio',
-    position: 'AI Full Stack Intern',
-    location: 'Remote',
-    image: '/company/detoxio.png',
+    company: 'Xponentium',
+    position: 'AI Software Intern',
+    location: 'Onsite',
+    image: '/company/xponentium.png',
     description: [
-      'Building cutting-edge GenAI tools and applications, focusing on practical AI implementations for real-world use cases.',
-      'Developing and deploying AI agents using modern frameworks like LangChain and other GenAI technologies.',
-      'Architecting full-stack solutions that integrate AI capabilities with robust backend and frontend systems.',
-      'Working with Python, TypeScript, and modern AI frameworks to create intelligent, scalable applications.',
-      'Collaborating on innovative AI projects that push the boundaries of applied artificial intelligence.',
+      'End-to-End Data Migration: Single-handedly migrated a production ATS from Airtable to PostgreSQL/Supabase, designing a normalized 39-table schema (450+ columns, 38 FKs, ~70K rows) with 55+ versioned SQL migrations.',
+      'Incremental Sync Service: Built a Node.js ETL service with real-time cursors and live schema introspection, cutting DB round-trips 88%, verified non-destructive by idempotency tests on 14K rows.',
+      'Concurrency & Integrity: Wrote PL/pgSQL RPCs using transaction-scoped advisory locks to eliminate double-booking, and diagnosed an infinite sync loop that cut runs from 20+ minutes to seconds.',
+      'Multilingual News Topic Clustering: Clustered 8,900+ Hinglish/Devanagari news titles using LaBSE with UMAP + HDBSCAN, benchmarking 6 architectures to cut noise from 27.7% to 0%.',
     ],
-    startDate: 'March 2025',
-    endDate: 'June 2026',
+    startDate: 'January 2026',
+    endDate: 'July 2026',
     technologies: [
       {
         name: 'Python',
@@ -61,29 +60,9 @@ export const experiences: Experience[] = [
         icon: <Python />,
       },
       {
-        name: 'LangChain',
-        href: 'https://www.langchain.com/',
-        icon: <LangChain />,
-      },
-      {
-        name: 'TypeScript',
-        href: 'https://typescriptlang.org/',
-        icon: <TypeScript />,
-      },
-      {
-        name: 'Next.js',
-        href: 'https://nextjs.org/',
-        icon: <NextJs />,
-      },
-      {
-        name: 'React',
-        href: 'https://react.dev/',
-        icon: <ReactIcon />,
-      },
-      {
-        name: 'Docker',
-        href: 'https://www.docker.com/',
-        icon: <Docker />,
+        name: 'Node.js',
+        href: 'https://nodejs.org/',
+        icon: <NodeJs />,
       },
       {
         name: 'PostgreSQL',
@@ -91,36 +70,31 @@ export const experiences: Experience[] = [
         icon: <PostgreSQL />,
       },
       {
-        name: 'Node.js',
-        href: 'https://nodejs.org/',
-        icon: <NodeJs />,
+        name: 'FastAPI',
+        href: 'https://fastapi.tiangolo.com/',
+        icon: <FastAPI />,
       },
       {
-        name: 'Vercel',
-        href: 'https://vercel.com/',
-        icon: <Vercel />,
+        name: 'GCloud',
+        href: 'https://cloud.google.com/',
+        icon: <GCloud />,
       },
     ],
-    website: 'https://www.bithive.in/',
-    github: 'BitHiveTechnologies',
-    x: 'https://x.com/BitHiveTechnologies',
-    linkedin: 'https://www.linkedin.com/company/bithive-technology/',
+    website: 'https://xponentium.com',
+    linkedin: 'https://www.linkedin.com/company/xponentium/',
   },
   {
     isCurrent: false,
-    employmentType: 'Full Time',
-    company: 'Bithive Technology',
-    position: 'Chief Technology Officer (CTO)',
-    location: 'Freelance Agency',
+    isBlur: false,
+    employmentType: 'Internship',
+    company: 'Bithive Technologies',
+    position: 'Software Development Intern',
+    location: 'Remote',
     image: '/company/bithive.webp',
     description: [
-      'Led technology strategy and development as CTO for a freelancing agency, overseeing all technical operations and project delivery.',
-      'Architected and developed custom websites tailored to client requirements, ensuring scalability, performance, and modern design standards.',
-      'Built custom tools and automation solutions to streamline client workflows and improve operational efficiency.',
-      'Managed end-to-end project lifecycle from requirements gathering to deployment, ensuring timely delivery and client satisfaction.',
-      'Implemented modern tech stack including React, Next.js, and TypeScript for robust web applications.',
+      'Built the core frontend in Next.js 14/TypeScript (50+ reusable components), integrated payment gateways and REST APIs, and shipped the Resume Builder and Job Management Dashboard modules.',
     ],
-    startDate: 'December 2024',
+    startDate: 'April 2025',
     endDate: 'November 2025',
     technologies: [
       {
@@ -129,39 +103,66 @@ export const experiences: Experience[] = [
         icon: <NextJs />,
       },
       {
-        name: 'React',
-        href: 'https://react.dev/',
-        icon: <ReactIcon />,
-      },
-      {
         name: 'TypeScript',
         href: 'https://www.typescriptlang.org/',
         icon: <TypeScript />,
+      },
+      {
+        name: 'React',
+        href: 'https://react.dev/',
+        icon: <ReactIcon />,
       },
       {
         name: 'Node.js',
         href: 'https://nodejs.org/',
         icon: <NodeJs />,
       },
-      {
-        name: 'MongoDB',
-        href: 'https://mongodb.com/',
-        icon: <MongoDB />,
-      },
-      {
-        name: 'Tailwind CSS',
-        href: 'https://tailwindcss.com/',
-        icon: <TailwindCss />,
-      },
-      {
-        name: 'Vercel',
-        href: 'https://vercel.com/',
-        icon: <Vercel />,
-      },
     ],
     website: 'https://www.bithive.in/',
     github: 'https://github.com/BitHiveTechnologies',
-    x: 'https://x.com/BitHiveTechnologies',
     linkedin: 'https://www.linkedin.com/company/bithive-technology/',
+  },
+  {
+    isCurrent: false,
+    isBlur: false,
+    employmentType: 'Internship',
+    company: 'FunctionUp (YC-23)',
+    position: 'Software Engineering Intern',
+    location: 'Remote',
+    image: '/company/functionup.png',
+    description: [
+      'Built a serverless WhatsApp notification scheduler on AWS Lambda, EventBridge, and S3 (Python/Flask + Appsmith admin), cutting manual coordination time by 40% at 99.9% reliability.',
+    ],
+    startDate: 'January 2024',
+    endDate: 'March 2024',
+    technologies: [
+      {
+        name: 'Python',
+        href: 'https://www.python.org/',
+        icon: <Python />,
+      },
+      {
+        name: 'AWS',
+        href: 'https://aws.amazon.com/',
+        icon: <AWS />,
+      },
+      {
+        name: 'Docker',
+        href: 'https://www.docker.com/',
+        icon: <Docker />,
+      },
+      {
+        name: 'FastAPI',
+        href: 'https://fastapi.tiangolo.com/',
+        icon: <FastAPI />,
+      },
+      {
+        name: 'LangChain',
+        href: 'https://www.langchain.com/',
+        icon: <LangChain />,
+      },
+    ],
+    website: 'https://functionup.org/',
+    linkedin: 'https://www.linkedin.com/company/functionup/',
   },
 ];

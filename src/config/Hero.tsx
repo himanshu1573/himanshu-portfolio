@@ -80,19 +80,14 @@ export const heroConfig = {
       component: 'Python',
     },
     {
-      name: 'Typescript',
+      name: 'TypeScript',
       href: 'https://www.typescriptlang.org/',
       component: 'TypeScript',
     },
     {
-      name: 'React',
-      href: 'https://react.dev/',
-      component: 'ReactIcon',
-    },
-    {
-      name: 'Next.js',
-      href: 'https://nextjs.org/',
-      component: 'NextJs',
+      name: 'FastAPI',
+      href: 'https://fastapi.tiangolo.com/',
+      component: 'AgenticAI',
     },
     {
       name: 'Docker',
@@ -108,6 +103,11 @@ export const heroConfig = {
       name: 'Agentic AI',
       href: 'https://www.anthropic.com/',
       component: 'AgenticAI',
+    },
+    {
+      name: 'Kubernetes',
+      href: 'https://kubernetes.io/',
+      component: 'Docker',
     },
   ],
 
