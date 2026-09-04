@@ -61,14 +61,14 @@ export const skillComponents = {
 
 export const heroConfig = {
   // Personal Information
-  name: 'Saurabh Singh',
-  title: 'AI Full Stack Engineer',
+  name: 'Himanshu Prajapati',
+  title: 'AI Infrastructure Engineer',
   /** Rotating roles under the name */
   titles: [
-    'AI Engineer',
-    'Full Stack Engineer',
+    'AI Infrastructure Engineer',
     'Backend Engineer',
-    'Freelancer',
+    'Open Source Contributor',
+    'Competitive Programmer',
   ],
   avatar: '/assets/logo.png',
 
@@ -114,22 +114,22 @@ export const heroConfig = {
   // Description Configuration
   description: {
     template:
-      'I build <b>AI-powered applications</b> using {skills:0}, {skills:1}, {skills:2}, and {skills:3}. Specialized in <b>Applied AI</b> and <b>GenAI</b> with {skills:5}, mastering <b>{skills:6}</b> to create intelligent solutions. Passionate about building MVPs that solve real-world problems with {skills:4}.',
+      'I build <b>AI infrastructure</b> using {skills:0}, {skills:1}, {skills:2}, and {skills:3}. Focused on <b>LLM inference</b>, <b>GPU provisioning</b>, and <b>Agentic AI</b> with {skills:5}, crafting intelligent solutions. Passionate about open source and solving real-world problems with {skills:4}.',
   },
 
   // Buttons Configuration
   buttons: [
     {
       variant: 'default',
-      text: 'Book an intro call',
-      href: 'https://cal.com/gitsaurabh/discovery-call',
-      icon: 'Calendar',
+      text: 'Check my resume',
+      href: '/resume/Himanshu_Prajapati_AI_engineer_resume.pdf',
+      icon: 'CV',
     },
     {
       variant: 'outline',
-      text: 'Check my resume',
-      href: '/resume/Saurabh_singh_Ai%20engineer_resume.pdf',
-      icon: 'CV',
+      text: 'View GitHub',
+      href: 'https://github.com/himanshu1573',
+      icon: 'Calendar',
     },
   ],
 };
@@ -138,22 +138,22 @@ export const heroConfig = {
 export const socialLinks = [
   {
     name: 'Github',
-    href: 'https://github.com/Saurabhsing21',
+    href: 'https://github.com/himanshu1573',
     icon: <Github />,
   },
   {
     name: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/gitsaurabhsingh/',
+    href: 'https://www.linkedin.com/in/himanshu-prajapati1573/',
     icon: <LinkedIn />,
   },
   {
     name: 'X',
-    href: 'https://x.com/gitsaurabh0',
+    href: 'https://x.com/himanshu1573',
     icon: <X />,
   },
   {
     name: 'LeetCode',
-    href: 'https://leetcode.com/u/saurabhsingh881888/',
+    href: 'https://leetcode.com/u/himanshu1573/',
     icon: <LeetCode />,
   },
 ];

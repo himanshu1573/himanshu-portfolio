@@ -20,6 +20,6 @@ export const mySkills = [
 ];
 
 export const about = {
-  name: 'Saurabh Singh',
-  description: `I'm an AI Full Stack engineer working on applied AI. I love building products to solve real-world problems and I'm specialized in building MVPs.`,
+  name: 'Himanshu Prajapati',
+  description: `I'm an early-career AI infrastructure engineer focused on the LLM inference stack: open-source contributor to llm-d, vLLM, and SkyPilot. Building eightserve, a from-scratch serving engine with continuous batching and a paged KV cache.`,
 };

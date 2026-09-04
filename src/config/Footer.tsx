@@ -1,7 +1,7 @@
 import { socialLinks } from '@/config/Hero';
 
 export const footerConfig = {
-  developer: 'Saurabh Singh',
+  developer: 'Himanshu Prajapati',
   text: '©',
   copyright: 'All rights reserved.',
   showVisitorCount: true,

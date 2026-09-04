@@ -14,16 +14,16 @@ export interface PageMeta {
 // Base site configuration
 export const siteConfig = {
   name: heroConfig.name,
-  title: 'Saurabh Singh - Portfolio',
-  description: 'AI Full Stack Engineer Portfolio - Saurabh Singh',
+  title: 'Himanshu Prajapati - Portfolio',
+  description: 'AI Infrastructure Engineer Portfolio - Himanshu Prajapati',
   url: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
   ogImage: '/meta/opengraph-image.png',
   author: {
     name: about.name,
-    twitter: '@gitsaurabh0',
-    github: 'Saurabhsing21',
-    linkedin: 'saurabh-singh-027006328',
-    email: 'saurabhsingh881888@gmail.com',
+    twitter: '@himanshu1573',
+    github: 'himanshu1573',
+    linkedin: 'himanshu-prajapati1573',
+    email: 'himanshu.codespace157@gmail.com',
   },
   keywords: [
     'portfolio',

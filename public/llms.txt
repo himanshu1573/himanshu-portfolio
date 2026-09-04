@@ -1,15 +1,14 @@
-# Saurabh Singh
+# Himanshu Prajapati
 
-> AI Full Stack Engineer — Applied AI, GenAI, and Agentic systems.
+> AI Infrastructure Engineer — LLM Inference, GPU Provisioning, and Agentic systems.
 
 ## Links
 
-- Portfolio: https://saurabh.dev (update with your domain)
-- GitHub: https://github.com/Saurabhsing21
-- LinkedIn: https://www.linkedin.com/in/gitsaurabhsingh/
-- X: https://x.com/gitsaurabh0
-- Email: saurabhsingh881888@gmail.com
+- Portfolio: https://himanshu-portfolio.vercel.app
+- GitHub: https://github.com/himanshu1573
+- LinkedIn: https://www.linkedin.com/in/himanshu-prajapati1573/
+- Email: himanshu.codespace157@gmail.com
 
 ## Skills
 
-Python, TypeScript, React, Next.js, LangChain, Agentic AI, Docker, PostgreSQL, MongoDB, Node.js
+Python, Go, C++, TypeScript, vLLM, llm-d, KServe, GuideLLM, Kubernetes, Docker, SkyPilot, LangChain, FastAPI, PostgreSQL, Supabase

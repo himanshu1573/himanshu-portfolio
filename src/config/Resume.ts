@@ -1,3 +1,3 @@
 export const resumeConfig = {
-  url: '/resume/Saurabh_singh_Ai%20engineer_resume.pdf',
+  url: '/resume/Himanshu_Prajapati_AI_engineer_resume.pdf',
 };
