@@ -85,7 +85,7 @@
 :root {
   --radius: 0.625rem;
   --blog-font-size: 16px;
-  --content-max-width: 42rem;
+  --content-max-width: 56rem;
   --section-padding-x: 1.5rem;
   /* Off-white warm background */
   --background: oklch(0.974 0.006 80);
