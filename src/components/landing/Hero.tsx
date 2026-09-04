@@ -103,7 +103,7 @@ export default function Hero() {
 
   return (
     <div className="w-full">
-      {/* ── SS Monogram Banner + interactive heat grid ── */}
+      {/* ── HP Monogram Banner + interactive heat grid ── */}
       <div className="relative flex min-h-[200px] items-center justify-center overflow-hidden">
         <ThermodynamicGrid resolution={12} coolingFactor={0.96} />
         <div className="pointer-events-none relative z-10 flex flex-col items-center gap-2">
@@ -114,7 +114,7 @@ export default function Hero() {
             )}
             style={{ letterSpacing: '0.12em' }}
           >
-            SS
+            HP
           </span>
           <span className="text-[11px] font-medium tracking-wide text-white/45">
             Hover me
