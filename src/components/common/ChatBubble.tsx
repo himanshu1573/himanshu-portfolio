@@ -31,7 +31,7 @@ interface Message {
 const initialMessages: Message[] = [
   {
     id: 1,
-    text: "Hello! I'm Ram's Portfolio Assistant. How can I help you?",
+    text: `Hello! I'm ${heroConfig.name}'s Portfolio Assistant. How can I help you?`,
     sender: 'bot',
     timestamp: new Date().toLocaleTimeString([], {
       hour: '2-digit',
@@ -256,7 +256,7 @@ const ChatBubble: React.FC = () => {
     >
       <ExpandableChatHeader>
         <div className="flex items-center space-x-3">
-          <Avatar className="h-8 w-8 border border-[var(--dashed-border)] bg-muted">
+          <Avatar className="bg-muted h-8 w-8 border border-[var(--dashed-border)]">
             <AvatarImage src="/assets/logo.png" alt="Assistant" />
             <AvatarFallback>AI</AvatarFallback>
           </Avatar>
@@ -289,7 +289,7 @@ const ChatBubble: React.FC = () => {
               >
                 <div className="flex items-start space-x-2">
                   {message.sender === 'bot' && (
-                    <Avatar className="h-6 w-6 border border-[var(--dashed-border)] bg-muted">
+                    <Avatar className="bg-muted h-6 w-6 border border-[var(--dashed-border)]">
                       <AvatarImage src="/assets/logo.png" alt="Assistant" />
                       <AvatarFallback>AI</AvatarFallback>
                     </Avatar>

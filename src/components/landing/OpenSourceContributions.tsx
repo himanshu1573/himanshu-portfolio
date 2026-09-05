@@ -1,5 +1,6 @@
 'use client';
 
+import { openSourceConfig } from '@/config/OpenSource';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -26,7 +27,7 @@ function MergedIcon() {
       viewBox="0 0 16 16"
       width="16"
       height="16"
-      className="shrink-0 text-foreground"
+      className="text-foreground shrink-0"
       aria-label="Merged"
     >
       <path
@@ -44,7 +45,7 @@ function OpenPRIcon() {
       viewBox="0 0 16 16"
       width="16"
       height="16"
-      className="shrink-0 text-muted-foreground"
+      className="text-muted-foreground shrink-0"
       aria-label="Open"
     >
       <path
@@ -63,14 +64,14 @@ function getPRStatus(pr: PullRequest): 'merged' | 'open' {
 function StatusBadge({ status }: { status: 'merged' | 'open' }) {
   if (status === 'merged') {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full border border-foreground/25 bg-foreground/10 px-2 py-0.5 text-[10px] font-medium text-foreground">
+      <span className="border-foreground/25 bg-foreground/10 text-foreground inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium">
         <MergedIcon />
         Merged
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 rounded-full border border-muted-foreground/40 bg-transparent px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+    <span className="border-muted-foreground/40 text-muted-foreground inline-flex items-center gap-1 rounded-full border bg-transparent px-2 py-0.5 text-[10px] font-medium">
       <OpenPRIcon />
       Open
     </span>
@@ -82,29 +83,27 @@ function PRSkeleton() {
     <div className="animate-pulse space-y-2">
       {Array.from({ length: 5 }).map((_, i) => (
         <div key={i} className="card-flat flex items-center gap-3 p-4">
-          <div className="h-4 w-4 shrink-0 rounded-full bg-muted" />
+          <div className="bg-muted h-4 w-4 shrink-0 rounded-full" />
           <div className="flex-1 space-y-2">
-            <div className="h-3.5 w-3/4 rounded bg-muted" />
-            <div className="h-3 w-1/3 rounded bg-muted" />
+            <div className="bg-muted h-3.5 w-3/4 rounded" />
+            <div className="bg-muted h-3 w-1/3 rounded" />
           </div>
-          <div className="h-5 w-16 rounded-full bg-muted" />
+          <div className="bg-muted h-5 w-16 rounded-full" />
         </div>
       ))}
     </div>
   );
 }
 
-const GITHUB_USERNAME = 'Saurabhsing21';
-const DEFAULT_VISIBLE = 10;
+const GITHUB_USERNAME = openSourceConfig.username;
+const DEFAULT_VISIBLE = openSourceConfig.visibleCount;
 
-const SKIP_TITLES = new Set([
-  'testing frontend',
-  'testing backend',
-  'fixed',
-  'dashboard',
-  'addded backend',
-  'created pull request for saurabhsingh branch',
-]);
+const SKIP_TITLES = new Set(
+  openSourceConfig.skipTitles.map((title) => title.toLowerCase().trim()),
+);
+const EXCLUDED_OWNERS = new Set(
+  openSourceConfig.excludedOwners.map((owner) => owner.toLowerCase()),
+);
 
 export default function OpenSourceContributions() {
   const [prs, setPrs] = useState<PullRequest[]>([]);
@@ -158,6 +157,10 @@ export default function OpenSourceContributions() {
           ...(mergedData.items ?? []).map(mapItem),
         ]
           .filter((pr) => !SKIP_TITLES.has(pr.title.toLowerCase().trim()))
+          .filter(
+            (pr) =>
+              !EXCLUDED_OWNERS.has(pr.repository.split('/')[0].toLowerCase()),
+          )
           .sort(
             (a, b) =>
               new Date(b.updated_at).getTime() -
@@ -186,7 +189,7 @@ export default function OpenSourceContributions() {
         {isLoading ? (
           <PRSkeleton />
         ) : hasError ? (
-          <div className="card-flat p-8 text-center text-muted-foreground">
+          <div className="card-flat text-muted-foreground p-8 text-center">
             <p className="font-medium">Unable to load contributions</p>
             <p className="mt-1 text-sm">
               Check out my{' '}
@@ -202,7 +205,7 @@ export default function OpenSourceContributions() {
             </p>
           </div>
         ) : prs.length === 0 ? (
-          <div className="card-flat p-8 text-center text-muted-foreground">
+          <div className="card-flat text-muted-foreground p-8 text-center">
             <p className="text-sm">No public contributions found.</p>
           </div>
         ) : (
@@ -224,10 +227,10 @@ export default function OpenSourceContributions() {
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-foreground transition-colors group-hover:opacity-80">
+                        <p className="text-foreground truncate text-sm font-medium transition-colors group-hover:opacity-80">
                           {pr.title}
                         </p>
-                        <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <p className="text-muted-foreground mt-0.5 flex items-center gap-1.5 text-xs">
                           <span className="font-mono">{pr.repository}</span>
                           <span>·</span>
                           <span>#{pr.number}</span>
@@ -248,7 +251,7 @@ export default function OpenSourceContributions() {
                 href={`https://github.com/${GITHUB_USERNAME}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground text-xs transition-colors"
               >
                 See all contributions on GitHub →
               </Link>

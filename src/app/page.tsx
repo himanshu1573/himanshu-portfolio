@@ -1,5 +1,5 @@
-import SectionDivider from '@/components/common/SectionDivider';
 import { Quote } from '@/components/common/Quote';
+import SectionDivider from '@/components/common/SectionDivider';
 import AboutMe from '@/components/landing/AboutMe';
 // import Achievements from '@/components/landing/Achievements';
 import Blog from '@/components/landing/Blog';
@@ -9,7 +9,7 @@ import Newsletter from '@/components/landing/Newsletter';
 import OpenSourceContributions from '@/components/landing/OpenSourceContributions';
 import Work from '@/components/landing/Projects';
 import Skills from '@/components/landing/Skills';
-import Testimonials from '@/components/landing/Testimonials';
+// import Testimonials from '@/components/landing/Testimonials';
 import React from 'react';
 
 /** Keep homepage blog preview in sync with Dev.to publishes */
@@ -28,7 +28,7 @@ export default function page() {
         <Skills />
         {/* <Achievements /> */}
         <Blog />
-        <Testimonials />
+        {/* <Testimonials /> — enable once src/config/Testimonials.tsx has real entries */}
         <AboutMe />
         <Newsletter />
 

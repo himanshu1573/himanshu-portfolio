@@ -1,5 +1,6 @@
 import { BlogContent } from '@/components/blog/BlogContent';
 import Container from '@/components/common/Container';
+import { siteConfig } from '@/config/Meta';
 import { getBlogPostBySlug, getPublishedBlogPosts } from '@/lib/blog';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -30,7 +31,7 @@ export async function generateMetadata({
   const { title, description, image } = post.frontmatter;
 
   return {
-    title: `${title} – Saurabh Singh`,
+    title: `${title} – ${siteConfig.name}`,
     description,
     openGraph: {
       title,

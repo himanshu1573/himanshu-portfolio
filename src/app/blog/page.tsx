@@ -1,11 +1,12 @@
 import { BlogCard } from '@/components/blog/BlogCard';
 import Container from '@/components/common/Container';
 import { Separator } from '@/components/ui/separator';
+import { siteConfig } from '@/config/Meta';
 import { getPublishedBlogPosts } from '@/lib/blog';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blog – Saurabh Singh',
+  title: `Blog – ${siteConfig.name}`,
   description:
     'Thoughts on AI, full-stack development, and building products that matter.',
 };
