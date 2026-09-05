@@ -146,6 +146,23 @@ export const pageMetadata: Record<string, PageMeta> = {
     twitterCard: 'summary_large_image',
   },
 
+  // Inference lab
+  '/lab': {
+    title: 'Inference Lab - Continuous Batching & KV Cache, Live',
+    description:
+      'Interactive LLM serving models: a live continuous-batching vs static-batching simulator with a paged KV cache, and a calculator for whether a model fits on a GPU and how fast it decodes.',
+    keywords: [
+      'continuous batching',
+      'pagedattention',
+      'kv cache calculator',
+      'llm inference',
+      'vllm',
+      'gpu memory',
+    ],
+    ogImage: '/meta/projects.png',
+    twitterCard: 'summary_large_image',
+  },
+
   // Books page
   '/books': {
     title: 'Bookshelf - What I Am Reading',

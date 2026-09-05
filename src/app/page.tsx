@@ -5,6 +5,7 @@ import AboutMe from '@/components/landing/AboutMe';
 import Blog from '@/components/landing/Blog';
 import Experience from '@/components/landing/Experience';
 import Hero from '@/components/landing/Hero';
+import Lab from '@/components/landing/Lab';
 import Newsletter from '@/components/landing/Newsletter';
 import OpenSourceContributions from '@/components/landing/OpenSourceContributions';
 import Work from '@/components/landing/Projects';
@@ -25,6 +26,7 @@ export default function page() {
         {/* Titled sections own their top/bottom rules — no extra dividers between them */}
         <Experience />
         <Work />
+        <Lab />
         <OpenSourceContributions />
         <Skills />
         {/* <Achievements /> */}
