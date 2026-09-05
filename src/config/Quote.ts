@@ -1,3 +1,6 @@
+/**
+ * Offline fallback only. Live quotes come from ZenQuotes via /api/quotes.
+ */
 export const quotes = [
   {
     quote: `A man who is master of patience is master of everything else.`,
