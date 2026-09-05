@@ -27,36 +27,25 @@ import Github from '@/components/svgs/Github';
 import LeetCode from '@/components/svgs/LeetCode';
 import LinkedIn from '@/components/svgs/LinkedIn';
 import X from '@/components/svgs/X';
-import AgenticAI from '@/components/technologies/AgenticAI';
-import Bun from '@/components/technologies/Bun';
 import Docker from '@/components/technologies/Docker';
-import JavaScript from '@/components/technologies/JavaScript';
+import Golang from '@/components/technologies/Golang';
+import Kubernetes from '@/components/technologies/Kubernetes';
 import LangChain from '@/components/technologies/LangChain';
-import MongoDB from '@/components/technologies/MongoDB';
-import NextJs from '@/components/technologies/NextJs';
-import NodeJs from '@/components/technologies/NodeJs';
-import PostgreSQL from '@/components/technologies/PostgreSQL';
-import Prisma from '@/components/technologies/Prisma';
+import PyTorch from '@/components/technologies/PyTorch';
 import Python from '@/components/technologies/Python';
-import ReactIcon from '@/components/technologies/ReactIcon';
-// Technology Components
 import TypeScript from '@/components/technologies/TypeScript';
+import VLLM from '@/components/technologies/VLLM';
 
 // Component mapping for skills
 export const skillComponents = {
-  TypeScript: TypeScript,
-  ReactIcon: ReactIcon,
-  NextJs: NextJs,
-  Bun: Bun,
-  PostgreSQL: PostgreSQL,
-  NodeJs: NodeJs,
-  MongoDB: MongoDB,
-  Prisma: Prisma,
-  JavaScript: JavaScript,
   Python: Python,
+  Kubernetes: Kubernetes,
+  VLLM: VLLM,
+  Golang: Golang,
   Docker: Docker,
   LangChain: LangChain,
-  AgenticAI: AgenticAI,
+  PyTorch: PyTorch,
+  TypeScript: TypeScript,
 };
 
 export const heroConfig = {
@@ -80,14 +69,19 @@ export const heroConfig = {
       component: 'Python',
     },
     {
-      name: 'TypeScript',
-      href: 'https://www.typescriptlang.org/',
-      component: 'TypeScript',
+      name: 'Kubernetes',
+      href: 'https://kubernetes.io/',
+      component: 'Kubernetes',
     },
     {
-      name: 'FastAPI',
-      href: 'https://fastapi.tiangolo.com/',
-      component: 'AgenticAI',
+      name: 'vLLM',
+      href: 'https://github.com/vllm-project/vllm',
+      component: 'VLLM',
+    },
+    {
+      name: 'Go',
+      href: 'https://go.dev/',
+      component: 'Golang',
     },
     {
       name: 'Docker',
@@ -95,26 +89,21 @@ export const heroConfig = {
       component: 'Docker',
     },
     {
-      name: 'LangChain',
-      href: 'https://www.langchain.com/',
+      name: 'LangGraph',
+      href: 'https://www.langchain.com/langgraph',
       component: 'LangChain',
     },
     {
-      name: 'Agentic AI',
-      href: 'https://www.anthropic.com/',
-      component: 'AgenticAI',
-    },
-    {
-      name: 'Kubernetes',
-      href: 'https://kubernetes.io/',
-      component: 'Docker',
+      name: 'PyTorch',
+      href: 'https://pytorch.org/',
+      component: 'PyTorch',
     },
   ],
 
   // Description Configuration
   description: {
     template:
-      'I build <b>AI infrastructure</b> using {skills:0}, {skills:1}, {skills:2}, and {skills:3}. Focused on <b>LLM inference</b>, <b>GPU provisioning</b>, and <b>Agentic AI</b> with {skills:5}, crafting intelligent solutions. Passionate about open source and solving real-world problems with {skills:4}.',
+      'I work on <b>AI infrastructure</b> for the <b>LLM inference stack</b> using {skills:0}, {skills:3}, {skills:1}, and {skills:2}. I contribute to <b>llm-d</b>, <b>vLLM (GuideLLM)</b>, and <b>SkyPilot</b>, and I am building <b>tinyserve</b>, a from-scratch serving engine with <b>continuous batching</b> and a <b>paged KV cache</b>. On the side: agentic systems with {skills:5}, {skills:6}, and competitive programming.',
   },
 
   // Buttons Configuration

@@ -27,12 +27,13 @@ export const siteConfig = {
   },
   keywords: [
     'portfolio',
-    'developer',
-    'full-stack',
-    'react',
-    'nextjs',
-    'typescript',
-    'web development',
+    'ai infrastructure engineer',
+    'llm inference',
+    'vllm',
+    'llm-d',
+    'kubernetes',
+    'gpu',
+    'open source',
     heroConfig.name.toLowerCase(),
   ],
 };
@@ -44,9 +45,9 @@ export const pageMetadata: Record<string, PageMeta> = {
     description: `${about.description} Explore my projects, experience, and technical expertise.`,
     keywords: [
       'portfolio',
-      'developer',
-      'full-stack',
-      'web development',
+      'ai infrastructure',
+      'llm inference',
+      'llm serving',
       'projects',
     ],
     ogImage: '/meta/hero.png',
@@ -58,7 +59,13 @@ export const pageMetadata: Record<string, PageMeta> = {
     title: 'Contact - Get in Touch',
     description:
       "Get in touch with me for collaborations, projects, or opportunities. I'd love to hear from you!",
-    keywords: ['contact', 'hire', 'collaboration', 'freelance', 'developer'],
+    keywords: [
+      'contact',
+      'hire',
+      'collaboration',
+      'ai infrastructure',
+      'engineer',
+    ],
     ogImage: '/assets/logo.png',
     twitterCard: 'summary',
   },
@@ -67,12 +74,12 @@ export const pageMetadata: Record<string, PageMeta> = {
   '/work-experience': {
     title: 'Work Experience - Professional Journey',
     description:
-      'Explore my professional work experience across different companies and roles in software development.',
+      'Internships and roles across AI infrastructure, data engineering, and full-stack development.',
     keywords: [
       'work experience',
       'career',
       'professional',
-      'software developer',
+      'ai engineer',
       'employment history',
     ],
     ogImage: '/meta/work.png',
@@ -81,15 +88,16 @@ export const pageMetadata: Record<string, PageMeta> = {
 
   // Projects page
   '/projects': {
-    title: 'Projects - My Work & Projects Portfolio',
+    title: 'Projects - LLM Serving, Agents & Retrieval',
     description:
-      'Discover my projects and work across different technologies and domains. From web apps to mobile solutions.',
+      'Systems I have built around LLM inference and serving, agentic workflows, and retrieval: tinyserve, a Kubeflow docs assistant, and a drug-discovery multi-agent pipeline.',
     keywords: [
       'projects',
-      'portfolio',
-      'web development',
-      'applications',
-      'software',
+      'llm serving',
+      'continuous batching',
+      'paged kv cache',
+      'rag',
+      'langgraph',
     ],
     ogImage: '/meta/projects.png',
     twitterCard: 'summary_large_image',
@@ -115,7 +123,7 @@ export const pageMetadata: Record<string, PageMeta> = {
   '/gears': {
     title: 'Gears Used - Hardware & Tools',
     description:
-      'The devices, software, and browser extensions I use daily as an AI full-stack engineer.',
+      'The devices, software, and browser extensions I use daily as an AI infrastructure engineer.',
     keywords: ['gears', 'setup', 'hardware', 'tools', 'macbook', 'workflow'],
     ogImage: '/meta/gears.png',
     twitterCard: 'summary_large_image',

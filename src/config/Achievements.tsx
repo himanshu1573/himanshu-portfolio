@@ -8,24 +8,27 @@ export interface Achievement {
 
 export const achievements: Achievement[] = [
   {
-    title: 'Competitive Programmer — 1000 rating on Codeforces, 500+ problems solved',
+    title:
+      'Competitive Programmer — 1000+ rating on Codeforces, 500+ problems solved',
     organization: 'Codeforces / LeetCode / CSES / SPOJ',
     date: 'Ongoing',
-    href: 'https://codeforces.com',
+    href: 'https://codeforces.com/profile/hmnshu_',
     icon: 'trophy',
   },
   {
-    title: 'Open Source Contributor — Merged contributions to llm-d, vLLM (GuideLLM), and SkyPilot',
+    title:
+      'Open Source Contributor — Merged contributions to llm-d, vLLM (GuideLLM), and SkyPilot',
     organization: 'Open Source (2026)',
     date: '2026',
     href: 'https://github.com/himanshu1573',
     icon: 'medal',
   },
   {
-    title: 'Built eightserve — from-scratch LLM serving engine with continuous batching and paged KV cache',
+    title:
+      'Built tinyserve — from-scratch LLM serving engine with continuous batching and paged KV cache',
     organization: 'Personal Project',
     date: 'Ongoing',
-    href: '/projects',
+    href: '/projects/tinyserve',
     icon: 'star',
   },
 ];
