@@ -1,5 +1,6 @@
 import Code from '@/components/svgs/Code';
 import Gear from '@/components/svgs/Gear';
+import { BookOpen, ScrollText } from 'lucide-react';
 import React from 'react';
 
 export interface AboutMeItem {
@@ -36,6 +37,18 @@ function FilmIcon({ className }: { className?: string }) {
 }
 
 export const aboutMeItems: AboutMeItem[] = [
+  {
+    title: 'Bookshelf',
+    description: 'Books I am reading, queued, and finished.',
+    href: '/books',
+    icon: <BookOpen className="size-4" />,
+  },
+  {
+    title: 'Research Papers',
+    description: 'Papers on LLM inference and serving, with takeaways.',
+    href: '/papers',
+    icon: <ScrollText className="size-4" />,
+  },
   {
     title: 'Gears Used',
     description: 'Productivity tools and gear I use to get work done.',

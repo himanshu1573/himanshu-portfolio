@@ -146,6 +146,32 @@ export const pageMetadata: Record<string, PageMeta> = {
     twitterCard: 'summary_large_image',
   },
 
+  // Books page
+  '/books': {
+    title: 'Bookshelf - What I Am Reading',
+    description:
+      'Books I am reading, queued, and finished: systems, GPUs, and the machinery behind LLM serving.',
+    keywords: ['books', 'reading', 'systems', 'gpu', 'llm serving'],
+    ogImage: '/meta/blogs.png',
+    twitterCard: 'summary_large_image',
+  },
+
+  // Papers page
+  '/papers': {
+    title: 'Research Papers - LLM Inference Reading List',
+    description:
+      'A running collection of research papers on LLM inference and serving, with one-line takeaways.',
+    keywords: [
+      'research papers',
+      'llm inference',
+      'pagedattention',
+      'continuous batching',
+      'reading list',
+    ],
+    ogImage: '/meta/blogs.png',
+    twitterCard: 'summary_large_image',
+  },
+
   // Movies page
   '/movies': {
     title: 'Movies & Shows I Love',

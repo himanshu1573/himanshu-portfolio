@@ -8,6 +8,7 @@ import Hero from '@/components/landing/Hero';
 import Newsletter from '@/components/landing/Newsletter';
 import OpenSourceContributions from '@/components/landing/OpenSourceContributions';
 import Work from '@/components/landing/Projects';
+import Reading from '@/components/landing/Reading';
 import Skills from '@/components/landing/Skills';
 // import Testimonials from '@/components/landing/Testimonials';
 import React from 'react';
@@ -28,6 +29,7 @@ export default function page() {
         <Skills />
         {/* <Achievements /> */}
         <Blog />
+        <Reading />
         {/* <Testimonials /> — enable once src/config/Testimonials.tsx has real entries */}
         <AboutMe />
         <Newsletter />
