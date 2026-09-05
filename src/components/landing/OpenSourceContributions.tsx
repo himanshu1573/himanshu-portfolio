@@ -161,11 +161,15 @@ export default function OpenSourceContributions() {
             (pr) =>
               !EXCLUDED_OWNERS.has(pr.repository.split('/')[0].toLowerCase()),
           )
-          .sort(
-            (a, b) =>
-              new Date(b.updated_at).getTime() -
-              new Date(a.updated_at).getTime(),
-          );
+          // Merged PRs first (newest merge on top), then open PRs by activity
+          .sort((a, b) => {
+            const aMerged = a.merged_at ? 1 : 0;
+            const bMerged = b.merged_at ? 1 : 0;
+            if (aMerged !== bMerged) return bMerged - aMerged;
+            const aTime = new Date(a.merged_at ?? a.updated_at).getTime();
+            const bTime = new Date(b.merged_at ?? b.updated_at).getTime();
+            return bTime - aTime;
+          });
 
         setPrs(allItems);
       } catch (err) {

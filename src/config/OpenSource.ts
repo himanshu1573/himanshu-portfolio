@@ -8,7 +8,7 @@ export const openSourceConfig = {
   /** GitHub handle whose PRs are listed */
   username: 'himanshu1573',
   /** How many PRs to render on the landing page */
-  visibleCount: 10,
+  visibleCount: 12,
   /**
    * Repo owners to hide from the list — employer repos and classmates'
    * projects are not open-source contributions.
