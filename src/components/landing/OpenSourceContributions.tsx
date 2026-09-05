@@ -27,7 +27,7 @@ function MergedIcon() {
       viewBox="0 0 16 16"
       width="16"
       height="16"
-      className="text-foreground shrink-0"
+      className="shrink-0 text-[#8250df] dark:text-[#a371f7]"
       aria-label="Merged"
     >
       <path
@@ -45,7 +45,7 @@ function OpenPRIcon() {
       viewBox="0 0 16 16"
       width="16"
       height="16"
-      className="text-muted-foreground shrink-0"
+      className="shrink-0 text-[#1a7f37] dark:text-[#3fb950]"
       aria-label="Open"
     >
       <path
@@ -64,14 +64,14 @@ function getPRStatus(pr: PullRequest): 'merged' | 'open' {
 function StatusBadge({ status }: { status: 'merged' | 'open' }) {
   if (status === 'merged') {
     return (
-      <span className="border-foreground/25 bg-foreground/10 text-foreground inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium">
+      <span className="inline-flex items-center gap-1 rounded-full border border-[#8250df]/40 bg-[#8250df]/10 px-2 py-0.5 text-[10px] font-medium text-[#8250df] dark:border-[#a371f7]/40 dark:bg-[#a371f7]/15 dark:text-[#a371f7]">
         <MergedIcon />
         Merged
       </span>
     );
   }
   return (
-    <span className="border-muted-foreground/40 text-muted-foreground inline-flex items-center gap-1 rounded-full border bg-transparent px-2 py-0.5 text-[10px] font-medium">
+    <span className="inline-flex items-center gap-1 rounded-full border border-[#1a7f37]/40 bg-[#1a7f37]/10 px-2 py-0.5 text-[10px] font-medium text-[#1a7f37] dark:border-[#3fb950]/40 dark:bg-[#3fb950]/15 dark:text-[#3fb950]">
       <OpenPRIcon />
       Open
     </span>
