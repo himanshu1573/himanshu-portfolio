@@ -15,6 +15,7 @@ import Calendar from '../svgs/Calender';
 import { Button } from '../ui/button';
 import ThermodynamicGrid from '../ui/interactive-thermodynamic-grid';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import CodeforcesHeatmap from './CodeforcesHeatmap';
 import CodingStatus from './CodingStatus';
 import GithubHeatmap from './GithubHeatmap';
 import SpotifyWidget from './SpotifyWidget';
@@ -217,6 +218,12 @@ export default function Hero() {
 
         <div className="py-6">
           <GithubHeatmap />
+        </div>
+
+        <DashedHorizontalRule />
+
+        <div className="py-6">
+          <CodeforcesHeatmap />
         </div>
       </div>
     </div>

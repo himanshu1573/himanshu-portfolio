@@ -23,6 +23,7 @@
  *
  * That's it! Your portfolio will automatically update with your information.
  */
+import Codeforces from '@/components/svgs/Codeforces';
 import Github from '@/components/svgs/Github';
 import LeetCode from '@/components/svgs/LeetCode';
 import LinkedIn from '@/components/svgs/LinkedIn';
@@ -139,6 +140,11 @@ export const socialLinks = [
     name: 'X',
     href: 'https://x.com/himanshu1573',
     icon: <X />,
+  },
+  {
+    name: 'Codeforces',
+    href: 'https://codeforces.com/profile/hmnshu_',
+    icon: <Codeforces />,
   },
   {
     name: 'LeetCode',
