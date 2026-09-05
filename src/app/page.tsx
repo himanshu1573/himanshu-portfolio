@@ -12,7 +12,7 @@ import Skills from '@/components/landing/Skills';
 // import Testimonials from '@/components/landing/Testimonials';
 import React from 'react';
 
-/** Keep homepage blog preview in sync with Dev.to publishes */
+/** Keep homepage blog preview in sync with Medium publishes */
 export const revalidate = 3600;
 
 export default function page() {

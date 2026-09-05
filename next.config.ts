@@ -25,15 +25,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'media2.dev.to',
+        hostname: 'cdn-images-1.medium.com',
       },
       {
         protocol: 'https',
-        hostname: 'media.dev.to',
-      },
-      {
-        protocol: 'https',
-        hostname: 'dev-to-uploads.s3.us-east-2.amazonaws.com',
+        hostname: 'covers.openlibrary.org',
       },
       {
         protocol: 'https',

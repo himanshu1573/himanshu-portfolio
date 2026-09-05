@@ -1,63 +1,10 @@
-import { devtoConfig } from '@/config/Devto';
+import { type SeedPost, mediumConfig, seedPosts } from '@/config/Medium';
 import { BlogFrontmatter, BlogPost, BlogPostPreview } from '@/types/blog';
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
 
 const blogDirectory = path.join(process.cwd(), 'src/data/blog');
-
-type DevtoListArticle = {
-  id: number;
-  title: string;
-  description: string;
-  slug: string;
-  cover_image: string | null;
-  social_image: string | null;
-  tag_list: string[] | string;
-  published_at: string;
-  url: string;
-};
-
-type DevtoArticle = DevtoListArticle & {
-  body_markdown: string;
-  tag_list: string;
-  tags: string;
-};
-
-function normalizeTags(tags: string[] | string | undefined): string[] {
-  if (Array.isArray(tags)) {
-    return tags.map((tag) => tag.trim()).filter(Boolean);
-  }
-  if (typeof tags === 'string') {
-    return tags
-      .split(',')
-      .map((tag) => tag.trim())
-      .filter(Boolean);
-  }
-  return [];
-}
-
-function toDateString(iso: string): string {
-  return iso.slice(0, 10);
-}
-
-function mapDevtoPreview(article: DevtoListArticle): BlogPostPreview {
-  return {
-    slug: article.slug,
-    frontmatter: {
-      title: article.title,
-      description: article.description || article.title,
-      image:
-        article.cover_image ||
-        article.social_image ||
-        devtoConfig.fallbackImage,
-      tags: normalizeTags(article.tag_list),
-      date: toDateString(article.published_at),
-      isPublished: true,
-      source: 'devto',
-    },
-  };
-}
 
 /**
  * Get all blog post files from the blog directory
@@ -107,87 +54,163 @@ function getLocalBlogPostBySlug(slug: string): BlogPost | null {
   }
 }
 
-/**
- * Fetch published articles from Dev.to (auto-updates when you publish)
- */
-export async function getDevtoBlogPreviews(): Promise<BlogPostPreview[]> {
-  try {
-    const response = await fetch(
-      `${devtoConfig.apiUrl}/articles?username=${devtoConfig.username}&per_page=100`,
-      {
-        headers: { Accept: 'application/json' },
-        next: { revalidate: devtoConfig.revalidateSeconds },
-      },
-    );
+/* ------------------------------------------------------------------ */
+/* Medium RSS                                                          */
+/* ------------------------------------------------------------------ */
 
-    if (!response.ok) {
-      throw new Error(`Dev.to API error: ${response.status}`);
-    }
+/** Strip Medium's `?source=rss...` tracking query from article links */
+function cleanMediumUrl(url: string): string {
+  return url.split('?')[0];
+}
 
-    const articles: DevtoListArticle[] = await response.json();
-    return articles.map(mapDevtoPreview);
-  } catch (error) {
-    console.error('Failed to fetch Dev.to articles:', error);
-    return [];
+/** `https://medium.com/@user/my-title-abc123` → `my-title-abc123` */
+function slugFromUrl(url: string): string {
+  const segments = cleanMediumUrl(url).split('/').filter(Boolean);
+  return segments[segments.length - 1] ?? url;
+}
+
+function decodeEntities(text: string): string {
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ');
+}
+
+function stripTags(html: string): string {
+  return decodeEntities(html.replace(/<[^>]+>/g, ''))
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function cdata(block: string, tag: string): string | null {
+  const match = block.match(
+    new RegExp(
+      `<${tag}[^>]*>(?:<!\\[CDATA\\[)?([\\s\\S]*?)(?:\\]\\]>)?</${tag}>`,
+    ),
+  );
+  return match ? match[1].trim() : null;
+}
+
+function firstImage(html: string): string | null {
+  const matches = html.matchAll(/<img[^>]+src="([^"]+)"/g);
+  for (const match of matches) {
+    const src = match[1];
+    // Skip Medium's view-tracking pixel
+    if (src.includes('medium.com/_/stat')) continue;
+    return src;
   }
+  return null;
+}
+
+function firstParagraph(html: string): string {
+  const match = html.match(/<p[^>]*>([\s\S]*?)<\/p>/);
+  const text = stripTags(match ? match[1] : html);
+  return text.length > 220 ? `${text.slice(0, 217).trimEnd()}…` : text;
+}
+
+function toDateString(pubDate: string): string {
+  const date = new Date(pubDate);
+  return Number.isNaN(date.getTime())
+    ? new Date().toISOString().slice(0, 10)
+    : date.toISOString().slice(0, 10);
+}
+
+function toPreview(post: SeedPost): BlogPostPreview {
+  const url = cleanMediumUrl(post.url);
+  return {
+    slug: slugFromUrl(url),
+    frontmatter: {
+      title: post.title,
+      description: post.description || post.title,
+      image: post.image || mediumConfig.fallbackImage,
+      tags: post.tags,
+      date: post.date,
+      isPublished: true,
+      source: 'medium',
+      externalUrl: url,
+    },
+  };
+}
+
+/** Parse the RSS 2.0 feed Medium serves for a profile */
+export function parseMediumFeed(xml: string): SeedPost[] {
+  const items = xml.match(/<item>[\s\S]*?<\/item>/g) ?? [];
+
+  return items.flatMap((item) => {
+    const title = cdata(item, 'title');
+    const link = cdata(item, 'link');
+    const pubDate = cdata(item, 'pubDate');
+    if (!title || !link || !pubDate) return [];
+
+    const content = cdata(item, 'content:encoded') ?? '';
+    const tags = Array.from(
+      item.matchAll(/<category>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?<\/category>/g),
+    ).map((match) => match[1].trim());
+
+    return [
+      {
+        title: decodeEntities(title),
+        description: firstParagraph(content),
+        url: cleanMediumUrl(link),
+        date: toDateString(pubDate),
+        tags,
+        image: firstImage(content) ?? undefined,
+      },
+    ];
+  });
 }
 
 /**
- * Fetch a single Dev.to article by slug
+ * Fetch published articles from Medium (auto-updates when you publish).
+ * Falls back to the seeded snapshot on any failure.
  */
-export async function getDevtoBlogPostBySlug(
+export async function getMediumBlogPreviews(): Promise<BlogPostPreview[]> {
+  const seeded = seedPosts.map(toPreview);
+
+  try {
+    const response = await fetch(mediumConfig.feedUrl, {
+      headers: {
+        Accept: 'application/rss+xml, application/xml, text/xml',
+        'User-Agent': 'Mozilla/5.0 (portfolio blog sync)',
+      },
+      next: { revalidate: mediumConfig.revalidateSeconds },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Medium feed error: ${response.status}`);
+    }
+
+    const live = parseMediumFeed(await response.text()).map(toPreview);
+    if (live.length === 0) {
+      throw new Error('Medium feed returned no items');
+    }
+
+    // Live feed wins on overlap; seeds keep older posts that fall off the feed
+    const bySlug = new Map<string, BlogPostPreview>();
+    for (const post of seeded) bySlug.set(post.slug, post);
+    for (const post of live) bySlug.set(post.slug, post);
+    return Array.from(bySlug.values());
+  } catch (error) {
+    console.error('Failed to fetch Medium feed, using seeded posts:', error);
+    return seeded;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Combined                                                            */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Get blog post by slug with full content. Only local MDX posts have an
+ * on-site page; Medium posts link out to medium.com.
+ */
+export async function getBlogPostBySlug(
   slug: string,
 ): Promise<BlogPost | null> {
-  try {
-    const response = await fetch(
-      `${devtoConfig.apiUrl}/articles/${devtoConfig.username}/${slug}`,
-      {
-        headers: { Accept: 'application/json' },
-        next: { revalidate: devtoConfig.revalidateSeconds },
-      },
-    );
-
-    if (!response.ok) {
-      return null;
-    }
-
-    const article: DevtoArticle = await response.json();
-    const tags = normalizeTags(article.tag_list || article.tags);
-
-    // Drop a leading H1 that duplicates the page title
-    let content = article.body_markdown || '';
-    content = content.replace(/^#\s+.+\n+/, '');
-
-    return {
-      slug: article.slug,
-      frontmatter: {
-        title: article.title,
-        description: article.description || article.title,
-        image:
-          article.cover_image ||
-          article.social_image ||
-          devtoConfig.fallbackImage,
-        tags,
-        date: toDateString(article.published_at),
-        isPublished: true,
-        source: 'devto',
-      },
-      content,
-      format: 'markdown',
-    };
-  } catch (error) {
-    console.error(`Failed to fetch Dev.to article ${slug}:`, error);
-    return null;
-  }
-}
-
-/**
- * Get blog post by slug with full content (local MDX first, then Dev.to)
- */
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  const local = getLocalBlogPostBySlug(slug);
-  if (local) return local;
-  return getDevtoBlogPostBySlug(slug);
+  return getLocalBlogPostBySlug(slug);
 }
 
 /**
@@ -210,21 +233,21 @@ export function getLocalBlogPosts(): BlogPostPreview[] {
 }
 
 /**
- * Merge local MDX + Dev.to posts. Local wins on slug collisions.
- * Sorted newest first. New Dev.to publishes appear after revalidation.
+ * Merge local MDX + Medium posts. Local wins on slug collisions.
+ * Sorted newest first. New Medium publishes appear after revalidation.
  */
 export async function getAllBlogPosts(): Promise<BlogPostPreview[]> {
-  const [localPosts, devtoPosts] = await Promise.all([
+  const [localPosts, mediumPosts] = await Promise.all([
     Promise.resolve(getLocalBlogPosts()),
-    getDevtoBlogPreviews(),
+    getMediumBlogPreviews(),
   ]);
 
   const bySlug = new Map<string, BlogPostPreview>();
 
-  for (const post of devtoPosts) {
+  for (const post of mediumPosts) {
     bySlug.set(post.slug, post);
   }
-  // Local overrides Dev.to if the same slug exists
+  // Local overrides Medium if the same slug exists
   for (const post of localPosts) {
     bySlug.set(post.slug, post);
   }
@@ -237,7 +260,7 @@ export async function getAllBlogPosts(): Promise<BlogPostPreview[]> {
 }
 
 /**
- * Get all published blog posts (local + Dev.to)
+ * Get all published blog posts (local + Medium)
  */
 export async function getPublishedBlogPosts(): Promise<BlogPostPreview[]> {
   const allPosts = await getAllBlogPosts();

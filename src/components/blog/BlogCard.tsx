@@ -18,7 +18,11 @@ interface BlogCardProps {
 
 export function BlogCard({ post }: BlogCardProps) {
   const { slug, frontmatter } = post;
-  const { title, description, image, tags, date } = frontmatter;
+  const { title, description, image, tags, date, externalUrl } = frontmatter;
+  const href = externalUrl ?? `/blog/${slug}`;
+  const linkProps = externalUrl
+    ? { target: '_blank', rel: 'noopener noreferrer' }
+    : {};
 
   const formattedDate = new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -30,14 +34,14 @@ export function BlogCard({ post }: BlogCardProps) {
     <Card className="group h-full w-full overflow-hidden border-gray-100 p-0 shadow-none transition-all dark:border-gray-800">
       <CardHeader className="p-0">
         <div className="relative aspect-video overflow-hidden">
-          <Link href={`/blog/${slug}`}>
+          <Link href={href} {...linkProps}>
             <Image src={image} alt={title} fill className="object-cover" />
           </Link>
         </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
-          <Link href={`/blog/${slug}`}>
+          <Link href={href} {...linkProps}>
             <h3 className="group-hover:text-primary line-clamp-2 text-xl leading-tight font-semibold">
               {title}
             </h3>
@@ -67,10 +71,12 @@ export function BlogCard({ post }: BlogCardProps) {
               <Calender className="size-4" /> {formattedDate}
             </time>
             <Link
-              href={`/blog/${slug}`}
+              href={href}
+              {...linkProps}
               className="text-secondary flex items-center justify-end gap-2 underline-offset-4 hover:underline"
             >
-              Read More <ArrowRight className="size-4" />
+              {externalUrl ? 'Read on Medium' : 'Read More'}{' '}
+              <ArrowRight className="size-4" />
             </Link>
           </div>
         </div>

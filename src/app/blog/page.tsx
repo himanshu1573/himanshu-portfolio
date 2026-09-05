@@ -8,10 +8,10 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: `Blog – ${siteConfig.name}`,
   description:
-    'Thoughts on AI, full-stack development, and building products that matter.',
+    'Notes on LLM inference, KV caches, GPU infrastructure, and the systems I am learning by building them.',
 };
 
-/** Refresh listing hourly so newly published Dev.to posts appear automatically */
+/** Refresh listing hourly so newly published Medium posts appear automatically */
 export const revalidate = 3600;
 
 export default async function BlogPage() {
@@ -26,8 +26,8 @@ export default async function BlogPage() {
             Blogs
           </h1>
           <p className="text-muted-foreground max-w-xl text-base">
-            Thoughts on AI, full-stack development, and building things that
-            matter.
+            Notes on LLM inference, KV caches, GPU infrastructure, and the
+            systems I am learning by building them. Published on Medium.
           </p>
         </div>
 

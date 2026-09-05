@@ -8,7 +8,7 @@ import ViewAllButton from '../common/ViewAllButton';
 import Calender from '../svgs/Calender';
 
 export default async function Blog() {
-  const posts = (await getPublishedBlogPosts()).slice(0, 2);
+  const posts = (await getPublishedBlogPosts()).slice(0, 3);
 
   return (
     <section className="pb-10">
@@ -17,7 +17,7 @@ export default async function Blog() {
       <div className="flex flex-col gap-2 px-6 pt-6">
         {posts.map((post) => {
           const { slug, frontmatter } = post;
-          const { title, tags, date } = frontmatter;
+          const { title, tags, date, externalUrl } = frontmatter;
           const formattedDate = new Date(date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',
@@ -26,14 +26,17 @@ export default async function Blog() {
           return (
             <Link
               key={slug}
-              href={`/blog/${slug}`}
+              href={externalUrl ?? `/blog/${slug}`}
+              {...(externalUrl
+                ? { target: '_blank', rel: 'noopener noreferrer' }
+                : {})}
               className="group card-flat-interactive flex items-center gap-3 px-4 py-3"
             >
               <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-                <h3 className="text-sm font-semibold leading-snug text-foreground">
+                <h3 className="text-foreground text-sm leading-snug font-semibold">
                   {title}
                 </h3>
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
                   <Calender className="size-3.5" />
                   {formattedDate}
                 </div>
@@ -42,7 +45,7 @@ export default async function Blog() {
                     {tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-md border border-[var(--dashed-border)] bg-muted/50 px-2 py-0.5 text-[10px] text-muted-foreground"
+                        className="bg-muted/50 text-muted-foreground rounded-md border border-[var(--dashed-border)] px-2 py-0.5 text-[10px]"
                       >
                         {tag}
                       </span>

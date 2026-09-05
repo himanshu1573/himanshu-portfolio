@@ -1,7 +1,7 @@
 import { BlogContent } from '@/components/blog/BlogContent';
 import Container from '@/components/common/Container';
 import { siteConfig } from '@/config/Meta';
-import { getBlogPostBySlug, getPublishedBlogPosts } from '@/lib/blog';
+import { getBlogPostBySlug, getLocalBlogPosts } from '@/lib/blog';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -9,13 +9,13 @@ interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }
 
-/** Allow newly published Dev.to posts to resolve without a redeploy */
-export const dynamicParams = true;
-export const revalidate = 3600;
+/** Only local MDX posts have on-site pages; Medium posts link out */
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const posts = await getPublishedBlogPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  return getLocalBlogPosts()
+    .filter((post) => post.frontmatter.isPublished)
+    .map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
