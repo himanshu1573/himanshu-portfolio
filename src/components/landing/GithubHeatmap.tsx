@@ -2,17 +2,12 @@
 
 import { githubConfig } from '@/config/Github';
 import { useTheme } from 'next-themes';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import GithubIcon from '../svgs/Github';
 import { Button } from '../ui/button';
-
-const ActivityCalendar = dynamic(
-  () => import('react-activity-calendar').then((mod) => mod.default),
-  { ssr: false },
-);
+import PagedHeatmap from './PagedHeatmap';
 
 type ContributionItem = {
   date: string;
@@ -82,7 +77,9 @@ export default function GithubHeatmap() {
         <div className="bg-muted mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full">
           <GithubIcon className="h-6 w-6" />
         </div>
-        <p className="mb-1 text-sm font-medium">{githubConfig.errorState.title}</p>
+        <p className="mb-1 text-sm font-medium">
+          {githubConfig.errorState.title}
+        </p>
         <p className="mb-3 text-xs">{githubConfig.errorState.description}</p>
         <Button variant="outline" size="sm" asChild>
           <Link
@@ -97,54 +94,25 @@ export default function GithubHeatmap() {
     );
   }
 
-  return (
-    <div className="space-y-3">
-      <div className="w-full overflow-x-auto">
-        <ActivityCalendar
-          data={contributions}
-          blockSize={10}
-          blockMargin={3}
-          fontSize={githubConfig.fontSize}
-          colorScheme={theme === 'dark' ? 'dark' : 'light'}
-          maxLevel={githubConfig.maxLevel}
-          hideTotalCount={true}
-          hideColorLegend={true}
-          hideMonthLabels={false}
-          theme={githubConfig.theme}
-          labels={{
-            months: githubConfig.months,
-            weekdays: githubConfig.weekdays,
-            totalCount: githubConfig.totalCountLabel,
-          }}
-        />
-      </div>
+  const palette =
+    theme === 'dark' ? githubConfig.theme.dark : githubConfig.theme.light;
 
-      <div className="flex items-center justify-between">
-        {totalContributions > 0 && (
-          <p className="text-xs text-muted-foreground">
-            <span className="font-semibold text-foreground">
-              {totalContributions.toLocaleString()}
-            </span>{' '}
-            contributions in the last 11 months
-          </p>
-        )}
-        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <span>Less</span>
-          {[0, 1, 2, 3, 4].map((level) => (
-            <span
-              key={level}
-              className="inline-block size-2.5 rounded-sm"
-              style={{
-                backgroundColor:
-                  theme === 'dark'
-                    ? (githubConfig.theme.dark?.[level] ?? '#161b22')
-                    : (githubConfig.theme.light?.[level] ?? '#ebedf0'),
-              }}
-            />
-          ))}
-          <span>More</span>
-        </div>
+  return (
+    <div className="space-y-2">
+      <div className="text-muted-foreground flex items-center justify-between text-[10px] tracking-wide uppercase">
+        <span className="flex items-center gap-1.5">
+          <GithubIcon className="size-3" />
+          GitHub · last 11 months as a paged cache
+        </span>
+        <span className="normal-case">
+          {totalContributions.toLocaleString()} contributions
+        </span>
       </div>
+      <PagedHeatmap
+        days={contributions}
+        palette={palette}
+        unit="contribution"
+      />
     </div>
   );
 }

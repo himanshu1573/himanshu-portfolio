@@ -1,19 +1,13 @@
 'use client';
 
 import { codeforcesConfig } from '@/config/Codeforces';
-import { githubConfig } from '@/config/Github';
 import { useTheme } from 'next-themes';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import CodeforcesIcon from '../svgs/Codeforces';
 import { Button } from '../ui/button';
-
-const ActivityCalendar = dynamic(
-  () => import('react-activity-calendar').then((mod) => mod.default),
-  { ssr: false },
-);
+import PagedHeatmap from './PagedHeatmap';
 
 type ActivityItem = {
   date: string;
@@ -168,45 +162,11 @@ export default function CodeforcesHeatmap() {
         </div>
       </div>
 
-      <div className="w-full overflow-x-auto">
-        <ActivityCalendar
-          data={data.contributions}
-          blockSize={10}
-          blockMargin={3}
-          fontSize={githubConfig.fontSize}
-          colorScheme={theme === 'dark' ? 'dark' : 'light'}
-          maxLevel={4}
-          hideTotalCount={true}
-          hideColorLegend={true}
-          hideMonthLabels={false}
-          theme={codeforcesConfig.theme}
-          labels={{
-            months: githubConfig.months,
-            weekdays: githubConfig.weekdays,
-            totalCount: '{{count}} accepted submissions in the last year',
-          }}
-        />
-      </div>
-
-      <div className="flex items-center justify-between">
-        <p className="text-muted-foreground text-xs">
-          <span className="text-foreground font-semibold">
-            {data.total.toLocaleString()}
-          </span>{' '}
-          accepted submissions in the last 11 months
-        </p>
-        <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
-          <span>Less</span>
-          {[0, 1, 2, 3, 4].map((level) => (
-            <span
-              key={level}
-              className="inline-block size-2.5 rounded-sm"
-              style={{ backgroundColor: palette[level] }}
-            />
-          ))}
-          <span>More</span>
-        </div>
-      </div>
+      <PagedHeatmap
+        days={data.contributions}
+        palette={palette}
+        unit="accepted submission"
+      />
     </div>
   );
 }
