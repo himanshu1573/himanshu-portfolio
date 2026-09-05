@@ -160,16 +160,23 @@ export default function PagedHeatmap({
       {/* Grid */}
       <div className="w-full overflow-x-auto">
         <div className="inline-flex min-w-full flex-col gap-1">
-          {/* Month labels */}
-          <div className="ml-8 flex gap-[3px]">
-            {monthLabels.map((label, w) => (
-              <div
-                key={w}
-                className="text-muted-foreground w-[11px] shrink-0 text-[10px] leading-none"
-              >
-                {label && <span className="absolute">{label}</span>}
-              </div>
-            ))}
+          {/* Month labels: same column layout as the grid below */}
+          <div className="flex gap-1.5">
+            <div className="w-6 shrink-0" />
+            <div className="flex h-4 gap-[3px]">
+              {monthLabels.map((label, w) => (
+                <div
+                  key={w}
+                  className="text-muted-foreground relative w-[11px] shrink-0 text-[10px] leading-4"
+                >
+                  {label && (
+                    <span className="absolute top-0 left-0 whitespace-nowrap">
+                      {label}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="flex gap-1.5">
