@@ -56,11 +56,13 @@ export const heroConfig = {
   /** Rotating roles under the name */
   titles: [
     'AI Infrastructure Engineer',
-    'Backend Engineer',
-    'Open Source Contributor',
+    'LLM Inference & Serving',
+    'llm-d · vLLM · SkyPilot contributor',
     'Competitive Programmer',
   ],
-  avatar: '/assets/logo.png',
+  /** One-line "what I'm doing right now" shown under the name */
+  now: 'Now: building tinyserve, reading the DistServe paper',
+  avatar: '/assets/avatar.png',
 
   // Skills Configuration
   skills: [
@@ -111,15 +113,21 @@ export const heroConfig = {
   buttons: [
     {
       variant: 'default',
-      text: 'Check my resume',
+      text: 'Resume',
       href: '/resume/Himanshu_Prajapati_AI_engineer_resume.pdf',
       icon: 'CV',
     },
     {
       variant: 'outline',
-      text: 'View GitHub',
+      text: 'Open the Lab',
+      href: '/lab',
+      icon: 'Lab',
+    },
+    {
+      variant: 'outline',
+      text: 'GitHub',
       href: 'https://github.com/himanshu1573',
-      icon: 'Calendar',
+      icon: 'Github',
     },
   ],
 };

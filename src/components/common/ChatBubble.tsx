@@ -266,7 +266,7 @@ const ChatBubble: React.FC = () => {
       <ExpandableChatHeader>
         <div className="flex items-center space-x-3">
           <Avatar className="bg-muted h-8 w-8 border border-[var(--dashed-border)]">
-            <AvatarImage src="/assets/logo.png" alt="Assistant" />
+            <AvatarImage src="/assets/avatar.png" alt="Assistant" />
             <AvatarFallback>AI</AvatarFallback>
           </Avatar>
           <div>
@@ -299,7 +299,7 @@ const ChatBubble: React.FC = () => {
                 <div className="flex items-start space-x-2">
                   {message.sender === 'bot' && (
                     <Avatar className="bg-muted h-6 w-6 border border-[var(--dashed-border)]">
-                      <AvatarImage src="/assets/logo.png" alt="Assistant" />
+                      <AvatarImage src="/assets/avatar.png" alt="Assistant" />
                       <AvatarFallback>AI</AvatarFallback>
                     </Avatar>
                   )}

@@ -66,7 +66,7 @@ export const pageMetadata: Record<string, PageMeta> = {
       'ai infrastructure',
       'engineer',
     ],
-    ogImage: '/assets/logo.png',
+    ogImage: '/assets/avatar.png',
     twitterCard: 'summary',
   },
 

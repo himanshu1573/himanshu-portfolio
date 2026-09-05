@@ -3,8 +3,8 @@
 import { heroConfig, socialLinks } from '@/config/Hero';
 import { parseTemplate } from '@/lib/hero';
 import { cn } from '@/lib/utils';
+import { FlaskConical } from 'lucide-react';
 import { Link } from 'next-view-transitions';
-import { Pixelify_Sans } from 'next/font/google';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
@@ -12,22 +12,20 @@ import DashedHorizontalRule from '../common/DashedHorizontalRule';
 import { ThemeToggleButton } from '../common/ThemeSwitch';
 import CV from '../svgs/CV';
 import Calendar from '../svgs/Calender';
+import GithubIcon from '../svgs/Github';
 import { Button } from '../ui/button';
-import ThermodynamicGrid from '../ui/interactive-thermodynamic-grid';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import CodeforcesHeatmap from './CodeforcesHeatmap';
 import CodingStatus from './CodingStatus';
 import GithubHeatmap from './GithubHeatmap';
+import HeroBanner from './HeroBanner';
 import SpotifyWidget from './SpotifyWidget';
-
-const pixelify = Pixelify_Sans({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-});
 
 const buttonIcons = {
   Calendar: Calendar,
   CV: CV,
+  Github: GithubIcon,
+  Lab: () => <FlaskConical className="size-4" />,
 };
 
 function RotatingTitle({ titles }: { titles: string[] }) {
@@ -104,24 +102,8 @@ export default function Hero() {
 
   return (
     <div className="w-full">
-      {/* ── HP Monogram Banner + interactive heat grid ── */}
-      <div className="relative flex min-h-[200px] items-center justify-center overflow-hidden">
-        <ThermodynamicGrid resolution={12} coolingFactor={0.96} />
-        <div className="pointer-events-none relative z-10 flex flex-col items-center gap-2">
-          <span
-            className={cn(
-              pixelify.className,
-              'text-6xl font-bold text-white/90 select-none sm:text-7xl',
-            )}
-            style={{ letterSpacing: '0.12em' }}
-          >
-            HP
-          </span>
-          <span className="text-[11px] font-medium tracking-wide text-white/45">
-            Hover me
-          </span>
-        </div>
-      </div>
+      {/* ── Live engine banner ── */}
+      <HeroBanner />
 
       <DashedHorizontalRule />
 
@@ -145,6 +127,15 @@ export default function Hero() {
             <div className="flex flex-col gap-0.5">
               <h1 className="text-2xl leading-tight font-bold">{name}</h1>
               <RotatingTitle titles={rotatingTitles} />
+              {heroConfig.now && (
+                <p className="text-muted-foreground mt-1 flex items-center gap-1.5 text-xs">
+                  <span className="relative flex size-1.5">
+                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60" />
+                    <span className="relative inline-flex size-1.5 rounded-full bg-emerald-500" />
+                  </span>
+                  {heroConfig.now}
+                </p>
+              )}
             </div>
           </div>
           <ThemeToggleButton variant="circle" start="top-right" blur />
@@ -190,7 +181,7 @@ export default function Hero() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <p className="text-muted-foreground text-xs">Here are my socials</p>
+            <p className="text-muted-foreground text-xs">Find me on</p>
             <div className="flex flex-wrap gap-2">
               {socialLinks.map((link) => (
                 <Tooltip key={link.name} delayDuration={0}>
