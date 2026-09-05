@@ -33,15 +33,24 @@ const initialMessages: Message[] = [
     id: 1,
     text: `Hello! I'm ${heroConfig.name}'s Portfolio Assistant. How can I help you?`,
     sender: 'bot',
-    timestamp: new Date().toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-    }),
+    // Stamped on the client after mount: a locale time rendered on the
+    // server never matches the browser and breaks hydration.
+    timestamp: '',
   },
 ];
 
+const formatTime = () =>
+  new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
 const ChatBubble: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
+
+  useEffect(() => {
+    const now = formatTime();
+    setMessages((prev) =>
+      prev.map((m) => (m.timestamp ? m : { ...m, timestamp: now })),
+    );
+  }, []);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
