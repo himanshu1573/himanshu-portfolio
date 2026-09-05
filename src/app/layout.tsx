@@ -3,8 +3,8 @@ import BackToTop from '@/components/common/BackToTop';
 import ChatBubble from '@/components/common/ChatBubble';
 import Footer from '@/components/common/Footer';
 import Navbar from '@/components/common/Navbar';
-import OnekoCat from '@/components/common/OnekoCat';
 import { ThemeProvider } from '@/components/common/ThemeProviders';
+import TokenTrail from '@/components/common/TokenTrail';
 import { generateMetadata as getMetadata } from '@/config/Meta';
 import ReactLenis from 'lenis/react';
 import { ViewTransitions } from 'next-view-transitions';
@@ -32,7 +32,7 @@ export default function RootLayout({
               <Navbar />
               {children}
               <Footer />
-              <OnekoCat />
+              <TokenTrail />
               <ChatBubble />
               <BackToTop />
               <UmamiAnalytics />
