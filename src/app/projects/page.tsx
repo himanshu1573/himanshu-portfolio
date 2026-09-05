@@ -15,7 +15,8 @@ export default function ProjectsPage() {
 
         <div className="space-y-4 px-6 pt-4 pb-4">
           <p className="text-muted-foreground text-sm">
-            My projects and work across different technologies and domains.
+            Systems I have built around LLM serving, retrieval, and agents. Open
+            source contributions live on the home page.
           </p>
           <h2 className="text-foreground text-sm font-semibold">
             All Projects
