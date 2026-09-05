@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useHapticFeedback } from '@/hooks/use-haptic-feedback';
 import { cn } from '@/lib/utils';
 import { MessageCircle, X } from 'lucide-react';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export type ChatPosition = 'bottom-right' | 'bottom-left';
 export type ChatSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
@@ -48,11 +48,34 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
-  const toggleChat = () => setIsOpen(!isOpen);
+  const toggleChat = () => setIsOpen((open) => !open);
+
+  // Close on Escape or on a click outside the widget
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('pointerdown', onPointerDown);
+    };
+  }, [isOpen]);
 
   return (
     <div
+      ref={rootRef}
       className={cn(
         `fixed ${chatConfig.positions[position]} z-50 hover:cursor-pointer`,
         className,
@@ -61,6 +84,10 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
     >
       <div
         ref={chatRef}
+        // Keep Lenis (page smooth-scroll) from hijacking wheel events inside the chat
+        data-lenis-prevent
+        role="dialog"
+        aria-hidden={!isOpen}
         className={cn(
           'bg-background fixed inset-0 flex h-full w-full flex-col overflow-hidden border border-dashed border-[var(--dashed-border)] shadow-md transition-all duration-250 ease-out sm:absolute sm:inset-auto sm:h-[80vh] sm:w-[90vw] sm:rounded-lg',
           chatConfig.chatPositions[position],
@@ -73,8 +100,9 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-2 right-2 sm:hidden"
+          className="absolute top-2 right-2"
           onClick={toggleChat}
+          aria-label="Close chat"
         >
           <X className="h-4 w-4" />
         </Button>
@@ -116,8 +144,7 @@ const ExpandableChatFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 
 ExpandableChatFooter.displayName = 'ExpandableChatFooter';
 
-interface ExpandableChatToggleProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ExpandableChatToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: React.ReactNode;
   isOpen: boolean;
   toggleChat: () => void;
@@ -145,7 +172,7 @@ const ExpandableChatToggle: React.FC<ExpandableChatToggleProps> = ({
       variant="default"
       onClick={handleToggle}
       className={cn(
-        'flex h-11 w-11 items-center justify-center rounded-lg border border-dashed border-[var(--dashed-border)] bg-foreground text-background shadow-sm transition-all duration-300 hover:opacity-90',
+        'bg-foreground text-background flex h-11 w-11 items-center justify-center rounded-lg border border-dashed border-[var(--dashed-border)] shadow-sm transition-all duration-300 hover:opacity-90',
         className,
       )}
       {...props}

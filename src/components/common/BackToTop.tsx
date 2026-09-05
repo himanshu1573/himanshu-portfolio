@@ -31,7 +31,7 @@ export default function BackToTop() {
         <button
           type="button"
           onClick={handleClick}
-          className="fixed right-5 bottom-5 z-50 flex size-10 items-center justify-center rounded-lg bg-foreground text-background shadow-md transition-opacity hover:opacity-90"
+          className="bg-foreground text-background fixed right-5 bottom-20 z-40 flex size-10 items-center justify-center rounded-lg shadow-md transition-opacity hover:opacity-90"
           aria-label="Back to top"
         >
           <ArrowUp className="size-4" />
