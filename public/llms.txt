@@ -1,14 +1,52 @@
 # Himanshu Prajapati
 
-> AI Infrastructure Engineer — LLM Inference, GPU Provisioning, and Agentic systems.
+> AI Infrastructure Engineer — LLM inference and serving, GPU provisioning, and agentic systems.
+
+Early-career AI infrastructure engineer focused on the LLM inference stack. Open-source contributor to llm-d, vLLM (GuideLLM), and SkyPilot. Building tinyserve, a from-scratch LLM serving engine with continuous batching and a paged KV cache. Deployed Llama 3.1 via vLLM + KServe on Kubernetes. Competitive programmer, 500+ problems solved.
 
 ## Links
 
 - Portfolio: https://himanshu-portfolio.vercel.app
 - GitHub: https://github.com/himanshu1573
 - LinkedIn: https://www.linkedin.com/in/himanshu-prajapati1573/
+- Medium: https://medium.com/@himanshu157
+- Codeforces: https://codeforces.com/profile/hmnshu_
+- X: https://x.com/himanshu1573
 - Email: himanshu.codespace157@gmail.com
+
+## Projects
+
+- tinyserve: https://github.com/himanshu1573/tinyserve — readable LLM serving engine on an 8 GB M1: continuous batching, hand-written paged KV cache, OpenAI-compatible API (Python, MLX, FastAPI, asyncio)
+- Kubeflow Docs Assistant: https://github.com/himanshu1573/docs-agent — agentic RAG over Kubeflow docs: Kubeflow Pipelines ingestion, Milvus, Llama 3.1-8B via KServe + vLLM; 91% Precision@3
+- Drug Discovery Agent: https://github.com/himanshu1573/Drug-disovery-multiple-agent — LangGraph multi-agent target prioritisation over MCP connectors to DepMap, Open Targets, Pharos, Europe PMC
+
+## Open Source
+
+- llm-d: merged Go changes in llm-d-inference-sim (tool-call argument generator, tokenizer sidecar startup gating), llm-d-router (EPP streaming usage), llm-d-benchmark (namespace cleanup)
+- vLLM GuideLLM: merged Python changes to the multi-process benchmark scheduler (demand-gated request pulling, worker-0 attribution)
+- SkyPilot: Kubernetes GPU-variant scheduling, Nebius InfiniBand on Blackwell, managed-jobs cleanup, Slurm SSH hooks, multi-cloud staging buckets
+
+## Writing (Medium)
+
+- KV Cache: A Necessary Evil
+- KV Cache Part 2: From One GPU to a Whole Cluster
+- My laptop reads a gigabyte to write one word
+- Training Is a Marathon, Serving Is a Sprint
+- Why Most RAG Systems Fail on Code and How AST-Based Chunking Fixes It
+
+## Site sections
+
+- /projects — project cards and case studies
+- /blog — articles synced from Medium
+- /books — bookshelf (reading / up next / finished)
+- /papers — research papers on LLM inference with takeaways
+- /work-experience — internships and roles
 
 ## Skills
 
-Python, Go, C++, TypeScript, vLLM, llm-d, KServe, GuideLLM, Kubernetes, Docker, SkyPilot, LangChain, FastAPI, PostgreSQL, Supabase
+Languages: Python, Go, C++, TypeScript, SQL, Bash
+LLM inference & serving: vLLM, llm-d, KServe, GuideLLM, MLX, continuous batching, paged KV cache, prefix caching, SSE/WebSocket streaming
+Infrastructure & cloud: Kubernetes, Helm, Kustomize, Docker, SkyPilot, Slurm, Kubeflow Pipelines, AWS, GCP, Linux, CI/CD, Git
+AI & agents: LangGraph, LangChain, MCP, RAG, multi-agent systems, tool calling, Milvus, LangSmith
+ML & NLP: PyTorch, Hugging Face, Sentence-Transformers, HDBSCAN/UMAP, scikit-learn, pandas
+Backend & concurrency: FastAPI, asyncio, Node.js, PostgreSQL, Supabase, ETL pipelines, REST APIs
