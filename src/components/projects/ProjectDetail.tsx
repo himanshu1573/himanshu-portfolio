@@ -120,17 +120,23 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
       <div className="flex items-center justify-between px-6 py-3">
         <Link
           href="/projects"
-          className="group flex items-center gap-1.5 text-sm font-medium text-foreground transition-opacity hover:opacity-80"
+          className="group text-foreground flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-80"
         >
           <BackChevron className="size-4" />
           Projects
+        </Link>
+        <Link
+          href="/"
+          className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
+        >
+          Home
         </Link>
       </div>
 
       <DashedHorizontalRule />
 
       <div className="px-6 py-6">
-        <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-dashed border-[var(--dashed-border)] bg-muted">
+        <div className="bg-muted relative aspect-video w-full overflow-hidden rounded-xl border border-dashed border-[var(--dashed-border)]">
           {video ? (
             <video
               className="h-full w-full object-cover"
@@ -181,7 +187,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
 
       <div className="space-y-5 px-6 py-6">
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          <h1 className="text-foreground text-3xl font-bold tracking-tight">
             {title}
           </h1>
           <span
@@ -193,21 +199,23 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
             <span
               className={cn(
                 'size-2 rounded-full',
-                isWorking ? 'animate-pulse bg-green-500' : 'bg-muted-foreground',
+                isWorking
+                  ? 'animate-pulse bg-green-500'
+                  : 'bg-muted-foreground',
               )}
             />
             {isWorking ? 'Live' : 'Building'}
           </span>
         </div>
 
-        <p className="text-base leading-relaxed text-muted-foreground">
+        <p className="text-muted-foreground text-base leading-relaxed">
           {overview}
         </p>
 
         {highlights.length > 0 && (
           <div className="space-y-3">
             {highlightsLabel && (
-              <p className="text-sm font-medium text-foreground">
+              <p className="text-foreground text-sm font-medium">
                 {highlightsLabel}
               </p>
             )}
@@ -215,9 +223,9 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               {highlights.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-2.5 text-sm leading-relaxed text-muted-foreground"
+                  className="text-muted-foreground flex items-start gap-2.5 text-sm leading-relaxed"
                 >
-                  <span className="mt-2 size-1.5 shrink-0 rounded-full bg-foreground" />
+                  <span className="bg-foreground mt-2 size-1.5 shrink-0 rounded-full" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -226,7 +234,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         )}
 
         {outcome && (
-          <p className="text-sm leading-relaxed text-muted-foreground">
+          <p className="text-muted-foreground text-sm leading-relaxed">
             {outcome}
           </p>
         )}
@@ -235,14 +243,14 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
       <DashedHorizontalRule />
 
       <div className="px-6 py-6">
-        <h2 className="mb-4 text-lg font-semibold text-foreground">
+        <h2 className="text-foreground mb-4 text-lg font-semibold">
           Stack used
         </h2>
         <div className="flex flex-wrap gap-2">
           {technologies.map((tech) => (
             <span
               key={tech.name}
-              className="inline-flex items-center gap-2 rounded-lg border border-dashed border-[var(--dashed-border)] bg-muted/40 px-3 py-1.5 text-sm text-foreground"
+              className="bg-muted/40 text-foreground inline-flex items-center gap-2 rounded-lg border border-dashed border-[var(--dashed-border)] px-3 py-1.5 text-sm"
             >
               <span className="flex size-4 items-center justify-center [&>svg]:size-4">
                 {tech.icon}

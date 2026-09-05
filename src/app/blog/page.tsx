@@ -1,4 +1,5 @@
 import { BlogCard } from '@/components/blog/BlogCard';
+import BackHomeLink from '@/components/common/BackHomeLink';
 import Container from '@/components/common/Container';
 import { Separator } from '@/components/ui/separator';
 import { siteConfig } from '@/config/Meta';
@@ -20,6 +21,7 @@ export default async function BlogPage() {
   return (
     <Container className="py-16">
       <div className="space-y-8">
+        <BackHomeLink />
         <div className="space-y-3">
           <p className="text-secondary text-sm">Writing</p>
           <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">

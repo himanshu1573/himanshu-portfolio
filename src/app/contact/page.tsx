@@ -1,3 +1,4 @@
+import BackHomeLink from '@/components/common/BackHomeLink';
 import Container from '@/components/common/Container';
 import ContactForm from '@/components/contact/ContactForm';
 import { Separator } from '@/components/ui/separator';
@@ -12,6 +13,7 @@ export default function ContactPage() {
   return (
     <Container className="py-16">
       <div className="space-y-8">
+        <BackHomeLink />
         {/* Header */}
         <div className="space-y-4 text-center">
           <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">

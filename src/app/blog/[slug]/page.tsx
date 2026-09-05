@@ -1,4 +1,5 @@
 import { BlogContent } from '@/components/blog/BlogContent';
+import BackHomeLink from '@/components/common/BackHomeLink';
 import Container from '@/components/common/Container';
 import { siteConfig } from '@/config/Meta';
 import { getBlogPostBySlug, getLocalBlogPosts } from '@/lib/blog';
@@ -58,6 +59,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <Container className="py-16">
+      <div className="mx-auto mb-8 flex max-w-4xl items-center gap-4">
+        <BackHomeLink />
+        <BackHomeLink href="/blog" label="All posts" />
+      </div>
       <BlogContent
         frontmatter={post.frontmatter}
         content={post.content}

@@ -1,5 +1,5 @@
 import DashedHorizontalRule from '@/components/common/DashedHorizontalRule';
-import SectionTitle from '@/components/common/SectionTitle';
+import PageBackTitle from '@/components/common/PageBackTitle';
 import { ProjectList } from '@/components/projects/ProjectList';
 import { generateMetadata as getMetadata } from '@/config/Meta';
 import { projects } from '@/config/Projects';
@@ -11,7 +11,7 @@ export default function ProjectsPage() {
   return (
     <main>
       <div className="content-column content-column-dashed relative mx-auto">
-        <SectionTitle>Projects</SectionTitle>
+        <PageBackTitle href="/">Projects</PageBackTitle>
 
         <div className="space-y-4 px-6 pt-4 pb-4">
           <p className="text-muted-foreground text-sm">

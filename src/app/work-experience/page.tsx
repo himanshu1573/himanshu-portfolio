@@ -1,4 +1,4 @@
-import SectionTitle from '@/components/common/SectionTitle';
+import PageBackTitle from '@/components/common/PageBackTitle';
 import InlineExperienceCard from '@/components/landing/InlineExperienceCard';
 import { experiences } from '@/config/Experience';
 import { generateMetadata as getMetadata } from '@/config/Meta';
@@ -10,7 +10,7 @@ export default function WorkExperiencePage() {
   return (
     <main>
       <div className="content-column content-column-dashed relative mx-auto">
-        <SectionTitle>Experiences</SectionTitle>
+        <PageBackTitle href="/">Experiences</PageBackTitle>
         <div className="space-y-2 px-6 pt-4 pb-12">
           <p className="text-muted-foreground text-sm">
             My work experiences across different companies and roles.
