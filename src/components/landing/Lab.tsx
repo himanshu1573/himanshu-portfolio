@@ -47,9 +47,10 @@ export default function Lab() {
       <div className="grid grid-cols-1 md:grid-cols-5">
         <div className="flex flex-col gap-3 px-6 pt-6 md:col-span-2 md:border-r md:border-dashed md:border-[var(--dashed-border)]">
           <p className="text-foreground text-sm leading-relaxed">
-            Interactive models of what I work on: a live continuous-batching
-            scheduler with a paged KV cache, and a calculator for whether a
-            model fits on a GPU and how fast it will decode.
+            Interactive models of what I work on. Inference: a live
+            continuous-batching scheduler with a paged KV cache, and a
+            fit-and-speed calculator. Infrastructure: multi-cloud GPU scheduling
+            with failover, and KV-cache-aware request routing.
           </p>
           <p className="text-muted-foreground text-xs leading-relaxed">
             The grid on the right is the KV cache of a toy engine right now:

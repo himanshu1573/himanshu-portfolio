@@ -10,18 +10,9 @@ import {
   summarize,
 } from '@/lib/inference/sim';
 import { cn } from '@/lib/utils';
-import { Pause, Play, RotateCcw, Shuffle } from 'lucide-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-/* ------------------------------------------------------------------ */
-/* Shared bits                                                         */
-/* ------------------------------------------------------------------ */
-
-/** Stable, distinguishable colour per user in both themes */
-export function userColor(user: number, alpha = 1): string {
-  const hue = (user * 137.508) % 360;
-  return `hsl(${hue.toFixed(0)} 70% 52% / ${alpha})`;
-}
+import { Metric, PlayBar, RangeControl, userColor } from './controls';
 
 const DEFAULT_CONFIG: SimConfig = {
   seed: 7,
@@ -33,46 +24,6 @@ const DEFAULT_CONFIG: SimConfig = {
   outputRange: [16, 128],
   thinkRange: [1, 6],
 };
-
-interface ControlProps {
-  label: string;
-  value: number;
-  min: number;
-  max: number;
-  step?: number;
-  onChange: (value: number) => void;
-  format?: (value: number) => string;
-}
-
-function RangeControl({
-  label,
-  value,
-  min,
-  max,
-  step = 1,
-  onChange,
-  format,
-}: ControlProps) {
-  return (
-    <label className="flex min-w-[9rem] flex-1 flex-col gap-1">
-      <span className="text-muted-foreground flex items-center justify-between text-[11px] tracking-wide uppercase">
-        {label}
-        <span className="text-foreground font-mono text-xs normal-case">
-          {format ? format(value) : value}
-        </span>
-      </span>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="accent-foreground h-1.5 w-full cursor-pointer"
-      />
-    </label>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /* KV block grid                                                       */
@@ -153,37 +104,6 @@ const MODE_COPY: Record<SchedulerMode, { title: string; blurb: string }> = {
       'Every step, finished requests leave and queued ones join. KV memory is handed out one 16-token block at a time, only when needed.',
   },
 };
-
-function Metric({
-  label,
-  value,
-  hint,
-  good,
-}: {
-  label: string;
-  value: string;
-  hint?: string;
-  good?: boolean;
-}) {
-  return (
-    <div className="flex flex-col gap-0.5 rounded-md border border-dashed border-[var(--dashed-border)] px-3 py-2">
-      <span className="text-muted-foreground text-[10px] tracking-wide uppercase">
-        {label}
-      </span>
-      <span
-        className={cn(
-          'font-mono text-lg leading-tight font-semibold',
-          good ? 'text-[#1a7f37] dark:text-[#3fb950]' : 'text-foreground',
-        )}
-      >
-        {value}
-      </span>
-      {hint && (
-        <span className="text-muted-foreground text-[10px]">{hint}</span>
-      )}
-    </div>
-  );
-}
 
 function SchedulerPanel({
   state,
@@ -287,25 +207,25 @@ function SchedulerPanel({
           label="Throughput"
           value={summary.tokensPerStep.toFixed(2)}
           hint="tokens / step"
-          good={best.tps}
+          tone={best.tps ? 'good' : undefined}
         />
         <Metric
           label="Avg TTFT"
           value={summary.avgTtft.toFixed(1)}
           hint="steps waited"
-          good={best.ttft}
+          tone={best.ttft ? 'good' : undefined}
         />
         <Metric
           label="Slot util."
           value={`${(summary.slotUtilisation * 100).toFixed(0)}%`}
           hint="busy slots / step"
-          good={best.util}
+          tone={best.util ? 'good' : undefined}
         />
         <Metric
           label="KV efficiency"
           value={`${(summary.kvEfficiency * 100).toFixed(0)}%`}
           hint="stored / reserved"
-          good={best.kv}
+          tone={best.kv ? 'good' : undefined}
         />
       </div>
       <p className="text-muted-foreground text-[11px]">
@@ -321,8 +241,6 @@ function SchedulerPanel({
 /* ------------------------------------------------------------------ */
 /* Simulator                                                           */
 /* ------------------------------------------------------------------ */
-
-const SPEEDS = [2, 5, 10, 20, 40];
 
 export default function ServingSimulator() {
   const [config, setConfig] = useState<SimConfig>(DEFAULT_CONFIG);
@@ -416,56 +334,14 @@ export default function ServingSimulator() {
             format={(v) => `≤${v} tok`}
           />
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setRunning((r) => !r)}
-            className="bg-foreground text-background inline-flex h-8 items-center gap-1.5 rounded-md px-3 text-xs font-medium transition-opacity hover:opacity-90"
-          >
-            {running ? (
-              <Pause className="size-3.5" />
-            ) : (
-              <Play className="size-3.5" />
-            )}
-            {running ? 'Pause' : 'Play'}
-          </button>
-          <button
-            type="button"
-            onClick={() => reset(config)}
-            className="text-foreground hover:bg-muted inline-flex h-8 items-center gap-1.5 rounded-md border border-[var(--dashed-border)] px-3 text-xs font-medium transition-colors"
-          >
-            <RotateCcw className="size-3.5" />
-            Reset
-          </button>
-          <button
-            type="button"
-            onClick={() => update({ seed: Math.floor(Math.random() * 10000) })}
-            className="text-foreground hover:bg-muted inline-flex h-8 items-center gap-1.5 rounded-md border border-[var(--dashed-border)] px-3 text-xs font-medium transition-colors"
-          >
-            <Shuffle className="size-3.5" />
-            New workload
-          </button>
-          <div className="ml-auto flex items-center gap-1">
-            <span className="text-muted-foreground mr-1 text-[11px] uppercase">
-              Speed
-            </span>
-            {SPEEDS.map((v) => (
-              <button
-                key={v}
-                type="button"
-                onClick={() => setSpeed(v)}
-                className={cn(
-                  'h-7 rounded-md border px-2 font-mono text-[11px] transition-colors',
-                  speed === v
-                    ? 'border-foreground bg-foreground text-background'
-                    : 'text-muted-foreground hover:text-foreground border-[var(--dashed-border)]',
-                )}
-              >
-                {v}×
-              </button>
-            ))}
-          </div>
-        </div>
+        <PlayBar
+          running={running}
+          onToggle={() => setRunning((r) => !r)}
+          onReset={() => reset(config)}
+          onShuffle={() => update({ seed: Math.floor(Math.random() * 10000) })}
+          speed={speed}
+          onSpeed={setSpeed}
+        />
       </div>
 
       {/* Panels */}

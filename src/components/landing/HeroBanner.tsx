@@ -1,6 +1,6 @@
 'use client';
 
-import { userColor } from '@/components/lab/ServingSimulator';
+import { userColor } from '@/components/lab/controls';
 import {
   type SimConfig,
   type SimState,

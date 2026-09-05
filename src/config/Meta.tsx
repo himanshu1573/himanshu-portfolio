@@ -148,9 +148,9 @@ export const pageMetadata: Record<string, PageMeta> = {
 
   // Inference lab
   '/lab': {
-    title: 'Inference Lab - Continuous Batching & KV Cache, Live',
+    title: 'Inference Lab - Serving, Scheduling & Routing, Live',
     description:
-      'Interactive LLM serving models: a live continuous-batching vs static-batching simulator with a paged KV cache, and a calculator for whether a model fits on a GPU and how fast it decodes.',
+      'Interactive LLM infrastructure models: continuous vs static batching with a paged KV cache, a fit-and-speed calculator, multi-cloud GPU scheduling with failover, and KV-cache-aware request routing.',
     keywords: [
       'continuous batching',
       'pagedattention',
@@ -158,6 +158,9 @@ export const pageMetadata: Record<string, PageMeta> = {
       'llm inference',
       'vllm',
       'gpu memory',
+      'skypilot',
+      'llm-d',
+      'gpu scheduling',
     ],
     ogImage: '/meta/projects.png',
     twitterCard: 'summary_large_image',

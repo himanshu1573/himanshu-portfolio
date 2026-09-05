@@ -1,5 +1,7 @@
 import DashedHorizontalRule from '@/components/common/DashedHorizontalRule';
 import PageBackTitle from '@/components/common/PageBackTitle';
+import CacheAwareRouter from '@/components/lab/CacheAwareRouter';
+import ClusterScheduler from '@/components/lab/ClusterScheduler';
 import KVCalculator from '@/components/lab/KVCalculator';
 import ServingSimulator from '@/components/lab/ServingSimulator';
 import { generateMetadata as getMetadata } from '@/config/Meta';
@@ -17,14 +19,20 @@ export default function LabPage() {
 
         <div className="space-y-2 px-6 py-5">
           <p className="text-muted-foreground max-w-2xl text-sm leading-relaxed">
-            Two interactive models of the problems I work on. The first is the
-            scheduler from tinyserve with the model removed: watch static and
-            continuous batching fight over the same KV cache. The second is the
-            arithmetic behind every serving decision: does this model fit on
-            this GPU, and how fast will it decode?
+            Four interactive models of the problems I work on, in two halves.
+            Inference: the scheduler from tinyserve with the model removed, and
+            the arithmetic behind every serving decision. Infrastructure: how
+            SkyPilot places GPU jobs across clouds, and how llm-d routes
+            requests to the pod that already holds their KV cache.
           </p>
         </div>
 
+        <DashedHorizontalRule />
+        <div className="px-6 py-3">
+          <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
+            Inference
+          </p>
+        </div>
         <DashedHorizontalRule />
         <section className="px-6 py-6">
           <h2 className="text-foreground text-base font-semibold">
@@ -46,6 +54,38 @@ export default function LabPage() {
             First-order estimates from model shape and memory bandwidth alone.
           </p>
           <KVCalculator />
+        </section>
+
+        <DashedHorizontalRule />
+        <div className="px-6 py-3">
+          <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
+            Infrastructure
+          </p>
+        </div>
+        <DashedHorizontalRule />
+        <section className="px-6 py-6">
+          <h2 className="text-foreground text-base font-semibold">
+            3 · Multi-cloud GPU scheduling with failover
+          </h2>
+          <p className="text-muted-foreground mt-1 mb-5 text-xs">
+            SkyPilot-style placement across AWS, Nebius, GCP and an on-prem
+            Kubernetes pool, versus pinning everything to one cloud. Includes
+            the accelerator-variant matching rule from my SkyPilot work.
+          </p>
+          <ClusterScheduler />
+        </section>
+
+        <DashedHorizontalRule />
+        <section className="px-6 py-6">
+          <h2 className="text-foreground text-base font-semibold">
+            4 · KV-cache-aware request routing
+          </h2>
+          <p className="text-muted-foreground mt-1 mb-5 text-xs">
+            How llm-d&apos;s endpoint picker decides which decode pod gets a
+            request: round-robin, least loaded, and prefix-aware on identical
+            traffic.
+          </p>
+          <CacheAwareRouter />
         </section>
 
         <DashedHorizontalRule />
